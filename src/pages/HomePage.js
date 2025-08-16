@@ -151,7 +151,10 @@ const HomePage = () => {
                     >
                       Calculate Now
                     </Link>
-                    <button className="flex-1 border-2 border-blue-900 text-blue-900 hover:bg-blue-900 hover:text-white py-3 px-6 rounded-lg font-semibold transition-all duration-300">
+                    <button 
+                      onClick={() => window.scrollTo({ top: document.getElementById('learn-more').offsetTop - 80, behavior: 'smooth' })}
+                      className="flex-1 border-2 border-blue-900 text-blue-900 hover:bg-blue-900 hover:text-white py-3 px-6 rounded-lg font-semibold transition-all duration-300 cursor-pointer"
+                    >
                       Learn More
                     </button>
                   </div>

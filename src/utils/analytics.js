@@ -1,4 +1,5 @@
 // Google Analytics 4 tracking utilities
+import React from 'react';
 
 export const trackPageView = (page_title = document.title, page_location = window.location.href) => {
   if (typeof window !== 'undefined' && window.gtag) {
