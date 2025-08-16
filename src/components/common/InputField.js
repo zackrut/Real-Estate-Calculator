@@ -40,7 +40,7 @@ const InputField = ({
       <div className="relative">
         {prefix && (
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <span className="text-gray-500 text-sm">{prefix}</span>
+            <span className="text-gray-500 text-sm font-medium">{prefix}</span>
           </div>
         )}
         
@@ -55,7 +55,7 @@ const InputField = ({
           max={max}
           disabled={disabled}
           required={required}
-          className={`form-input ${prefix ? 'pl-8' : ''} ${suffix ? 'pr-8' : ''} ${
+          className={`form-input ${prefix ? 'pl-10' : ''} ${suffix ? 'pr-10' : ''} ${
             error ? 'border-red-500 focus:ring-red-500' : ''
           } ${disabled ? 'bg-gray-100 cursor-not-allowed' : ''}`}
         />
