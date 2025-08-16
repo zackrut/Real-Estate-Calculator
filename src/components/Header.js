@@ -32,7 +32,12 @@ const Header = () => {
               <button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 className="text-gray-700 hover:text-blue-900 font-medium flex items-center transition-colors duration-200"
-                onBlur={() => setTimeout(() => setIsDropdownOpen(false), 150)}
+                onBlur={(e) => {
+                  // Use requestAnimationFrame for better performance
+                  if (!e.currentTarget.contains(e.relatedTarget)) {
+                    requestAnimationFrame(() => setIsDropdownOpen(false));
+                  }
+                }}
               >
                 Calculators <i className="fas fa-chevron-down ml-1 text-xs"></i>
               </button>

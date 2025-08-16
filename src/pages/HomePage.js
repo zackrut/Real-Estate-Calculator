@@ -53,11 +53,11 @@ const HomePage = () => {
         <AdBox size="mobile" className="mb-4" />
 
         {/* Hero Section */}
-        <section className="hero-gradient text-white py-20">
-          <div className="container mx-auto px-4">
+        <section className="hero-gradient text-white py-20 min-h-[600px] flex items-center">
+          <div className="container mx-auto px-4 w-full">
             <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-                Professional Real Estate 
+              <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight min-h-[120px] md:min-h-[180px] flex items-center justify-center flex-col">
+                <span>Professional Real Estate</span>
                 <span className="block text-green-400">Investment Calculators</span>
               </h1>
               <p className="text-xl md:text-2xl mb-8 text-blue-100">
