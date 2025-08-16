@@ -55,19 +55,12 @@ const Header = () => {
               </div>
             </div>
             
-            <Link to="/#guides" className="nav-link text-gray-700 hover:text-blue-600 font-medium">
-              Guides
-            </Link>
-            <Link to="/#about" className="nav-link text-gray-700 hover:text-blue-600 font-medium">
+            <Link to="/about" className="nav-link text-gray-700 hover:text-blue-600 font-medium">
               About
             </Link>
-            <Link to="/#contact" className="nav-link text-gray-700 hover:text-blue-600 font-medium">
+            <Link to="/contact" className="nav-link text-gray-700 hover:text-blue-600 font-medium">
               Contact
             </Link>
-            
-            <button className="bg-gradient-to-r from-blue-600 to-green-500 text-white px-6 py-2 rounded-lg font-semibold hover:shadow-lg transition-all duration-300">
-              Pro Version
-            </button>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -101,13 +94,10 @@ const Header = () => {
             ))}
             
             <div className="border-t border-gray-100 mt-4 pt-4">
-              <Link to="/#guides" className="block py-2 px-4 text-gray-700 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>
-                Guides
-              </Link>
-              <Link to="/#about" className="block py-2 px-4 text-gray-700 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>
+              <Link to="/about" className="block py-2 px-4 text-gray-700 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>
                 About
               </Link>
-              <Link to="/#contact" className="block py-2 px-4 text-gray-700 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>
+              <Link to="/contact" className="block py-2 px-4 text-gray-700 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>
                 Contact
               </Link>
             </div>

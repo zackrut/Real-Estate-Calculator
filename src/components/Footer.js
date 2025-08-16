@@ -10,20 +10,14 @@ const Footer = () => {
     { path: '/fix-flip-calculator', name: 'Fix & Flip Profit' }
   ];
 
-  const resources = [
-    { href: '#guides', name: 'Investment Guides' },
-    { href: '#tutorials', name: 'Calculator Tutorials' },
-    { href: '#strategies', name: 'Investment Strategies' },
-    { href: '#market-analysis', name: 'Market Analysis' },
-    { href: '#faq', name: 'FAQ' }
+  const company = [
+    { path: '/about', name: 'About' },
+    { path: '/contact', name: 'Contact' }
   ];
 
   const legal = [
-    { href: '#privacy', name: 'Privacy Policy' },
-    { href: '#terms', name: 'Terms of Service' },
-    { href: '#disclaimer', name: 'Disclaimer' },
-    { href: '#contact', name: 'Contact Us' },
-    { href: '#about', name: 'About' }
+    { path: '/privacy', name: 'Privacy Policy' },
+    { path: '/terms', name: 'Terms of Service' }
   ];
 
   return (
@@ -42,37 +36,6 @@ const Footer = () => {
               Professional real estate investment calculators trusted by thousands of investors worldwide.
             </p>
             
-            {/* Social Media */}
-            <div className="flex space-x-4">
-              <a 
-                href="#" 
-                className="text-gray-400 hover:text-white transition-colors"
-                aria-label="Facebook"
-              >
-                <i className="fab fa-facebook text-xl"></i>
-              </a>
-              <a 
-                href="#" 
-                className="text-gray-400 hover:text-white transition-colors"
-                aria-label="Twitter"
-              >
-                <i className="fab fa-twitter text-xl"></i>
-              </a>
-              <a 
-                href="#" 
-                className="text-gray-400 hover:text-white transition-colors"
-                aria-label="LinkedIn"
-              >
-                <i className="fab fa-linkedin text-xl"></i>
-              </a>
-              <a 
-                href="#" 
-                className="text-gray-400 hover:text-white transition-colors"
-                aria-label="YouTube"
-              >
-                <i className="fab fa-youtube text-xl"></i>
-              </a>
-            </div>
           </div>
 
           {/* Calculator Links */}
@@ -89,26 +52,21 @@ const Footer = () => {
                   </Link>
                 </li>
               ))}
-              <li>
-                <span className="text-gray-500 text-sm">
-                  Wholesale Calculator <span className="text-xs">(Coming Soon)</span>
-                </span>
-              </li>
             </ul>
           </div>
 
-          {/* Resources */}
+          {/* Company */}
           <div>
-            <h3 className="text-white font-semibold mb-4">Resources</h3>
+            <h3 className="text-white font-semibold mb-4">Company</h3>
             <ul className="space-y-2">
-              {resources.map((resource) => (
-                <li key={resource.href}>
-                  <a 
-                    href={resource.href} 
+              {company.map((item) => (
+                <li key={item.path}>
+                  <Link 
+                    to={item.path} 
                     className="hover:text-white transition-colors"
                   >
-                    {resource.name}
-                  </a>
+                    {item.name}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -119,13 +77,13 @@ const Footer = () => {
             <h3 className="text-white font-semibold mb-4">Legal</h3>
             <ul className="space-y-2">
               {legal.map((item) => (
-                <li key={item.href}>
-                  <a 
-                    href={item.href} 
+                <li key={item.path}>
+                  <Link 
+                    to={item.path} 
                     className="hover:text-white transition-colors"
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
