@@ -21,7 +21,7 @@ function App() {
 
   return (
     <ErrorBoundary>
-      <div className="min-h-screen bg-gray-50 flex flex-col">
+      <div className="min-h-screen flex flex-col" style={{backgroundColor: '#f8fafc'}}>
         <Header />
         
         <main className="flex-grow">

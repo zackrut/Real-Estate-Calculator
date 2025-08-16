@@ -15,12 +15,12 @@ const Header = () => {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <header className="bg-white shadow-lg sticky top-0 z-50">
+    <header className="bg-white shadow-md border-b border-gray-100 sticky top-0 z-50">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-green-500 rounded-lg flex items-center justify-center">
+            <div className="w-10 h-10 bg-gradient-to-r from-blue-900 to-blue-700 rounded-lg flex items-center justify-center">
               <i className="fas fa-calculator text-white text-lg"></i>
             </div>
             <span className="text-2xl font-bold text-gray-800">REI Calculator Pro</span>
@@ -31,12 +31,12 @@ const Header = () => {
             <div className="relative">
               <button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="nav-link text-gray-700 hover:text-blue-600 font-medium flex items-center"
+                className="text-gray-700 hover:text-blue-900 font-medium flex items-center transition-colors duration-200"
                 onBlur={() => setTimeout(() => setIsDropdownOpen(false), 150)}
               >
                 Calculators <i className="fas fa-chevron-down ml-1 text-xs"></i>
               </button>
-              <div className={`dropdown absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-xl border ${isDropdownOpen ? 'show' : ''}`}>
+              <div className={`absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-100 ${isDropdownOpen ? 'opacity-100 visible transform translate-y-0' : 'opacity-0 invisible transform -translate-y-2'} transition-all duration-200`}>
                 <div className="py-2">
                   {calculators.map((calc) => (
                     <Link

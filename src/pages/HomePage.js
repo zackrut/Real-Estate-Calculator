@@ -109,7 +109,7 @@ const HomePage = () => {
               {calculators.map((calc) => (
                 <div 
                   key={calc.id}
-                  className="card-hover bg-white rounded-2xl p-8 shadow-lg border border-gray-100 relative overflow-hidden"
+                  className="bg-white rounded-lg p-6 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 relative overflow-hidden"
                 >
                   {/* Badge */}
                   <div className={`absolute top-4 right-4 ${calc.badgeColor} text-white px-3 py-1 rounded-full text-sm font-semibold`}>
@@ -117,7 +117,7 @@ const HomePage = () => {
                   </div>
 
                   {/* Icon */}
-                  <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                  <div className="w-20 h-20 bg-gradient-to-r from-blue-900 to-blue-700 rounded-2xl flex items-center justify-center mx-auto mb-6">
                     <i className={`${calc.icon} text-white text-2xl`}></i>
                   </div>
 
@@ -133,11 +133,11 @@ const HomePage = () => {
                   <div className="flex flex-col sm:flex-row gap-3">
                     <Link 
                       to={calc.path}
-                      className="flex-1 text-center py-3 px-6 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-all duration-300 hover:shadow-lg"
+                      className="flex-1 text-center py-3 px-6 bg-blue-900 hover:bg-blue-800 text-white rounded-lg font-semibold transition-all duration-300 hover:shadow-lg"
                     >
                       Calculate Now
                     </Link>
-                    <button className="flex-1 border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white py-3 px-6 rounded-lg font-semibold transition-all duration-300">
+                    <button className="flex-1 border-2 border-blue-900 text-blue-900 hover:bg-blue-900 hover:text-white py-3 px-6 rounded-lg font-semibold transition-all duration-300">
                       Learn More
                     </button>
                   </div>
