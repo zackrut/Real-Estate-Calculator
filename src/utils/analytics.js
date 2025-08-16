@@ -2,22 +2,24 @@
 import React from 'react';
 
 export const trackPageView = (page_title = document.title, page_location = window.location.href) => {
-  if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('config', 'GA_MEASUREMENT_ID', {
-      page_title,
-      page_location
-    });
-  }
+  // Google Analytics integration disabled until proper GA ID is configured
+  // if (typeof window !== 'undefined' && window.gtag) {
+  //   window.gtag('config', 'YOUR_GA_ID_HERE', {
+  //     page_title,
+  //     page_location
+  //   });
+  // }
 };
 
 export const trackEvent = (action, category, label, value) => {
-  if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('event', action, {
-      event_category: category,
-      event_label: label,
-      value: value
-    });
-  }
+  // Google Analytics integration disabled until proper GA ID is configured
+  // if (typeof window !== 'undefined' && window.gtag) {
+  //   window.gtag('event', action, {
+  //     event_category: category,
+  //     event_label: label,
+  //     value: value
+  //   });
+  // }
 };
 
 export const trackCalculatorUsage = (calculatorName) => {

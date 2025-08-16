@@ -31,7 +31,7 @@ const InputField = ({
         {required && <span className="text-red-500 ml-1">*</span>}
         {tooltip && (
           <span className="tooltip ml-1">
-            <span className="text-gray-400 cursor-help">ⓘ</span>
+            <span className="text-gray-600 cursor-help">ⓘ</span>
             <span className="tooltiptext">{tooltip}</span>
           </span>
         )}
@@ -40,7 +40,7 @@ const InputField = ({
       <div className="relative">
         {prefix && (
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <span className="text-gray-500 text-sm font-medium">{prefix}</span>
+            <span className="text-gray-600 text-sm font-medium">{prefix}</span>
           </div>
         )}
         
@@ -62,7 +62,7 @@ const InputField = ({
         
         {suffix && (
           <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-            <span className="text-gray-500 text-sm">{suffix}</span>
+            <span className="text-gray-600 text-sm">{suffix}</span>
           </div>
         )}
       </div>
