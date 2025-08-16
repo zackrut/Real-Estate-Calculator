@@ -81,10 +81,24 @@ const HomePage = () => {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#calculators" className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 hover:shadow-xl pulse-glow">
+                <a 
+                  href="#calculators" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById('calculators')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 hover:shadow-xl pulse-glow cursor-pointer"
+                >
                   Start Calculating
                 </a>
-                <a href="#learn-more" className="border-2 border-white text-white hover:bg-white hover:text-blue-900 px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300">
+                <a 
+                  href="#learn-more" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById('learn-more')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="border-2 border-white text-white hover:bg-white hover:text-blue-900 px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 cursor-pointer"
+                >
                   Learn More
                 </a>
               </div>

@@ -55,15 +55,15 @@ const Header = () => {
               </div>
             </div>
             
-            <a href="#guides" className="nav-link text-gray-700 hover:text-blue-600 font-medium">
+            <Link to="/#guides" className="nav-link text-gray-700 hover:text-blue-600 font-medium">
               Guides
-            </a>
-            <a href="#about" className="nav-link text-gray-700 hover:text-blue-600 font-medium">
+            </Link>
+            <Link to="/#about" className="nav-link text-gray-700 hover:text-blue-600 font-medium">
               About
-            </a>
-            <a href="#contact" className="nav-link text-gray-700 hover:text-blue-600 font-medium">
+            </Link>
+            <Link to="/#contact" className="nav-link text-gray-700 hover:text-blue-600 font-medium">
               Contact
-            </a>
+            </Link>
             
             <button className="bg-gradient-to-r from-blue-600 to-green-500 text-white px-6 py-2 rounded-lg font-semibold hover:shadow-lg transition-all duration-300">
               Pro Version
@@ -101,15 +101,15 @@ const Header = () => {
             ))}
             
             <div className="border-t border-gray-100 mt-4 pt-4">
-              <a href="#guides" className="block py-2 px-4 text-gray-700 hover:text-blue-600">
+              <Link to="/#guides" className="block py-2 px-4 text-gray-700 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>
                 Guides
-              </a>
-              <a href="#about" className="block py-2 px-4 text-gray-700 hover:text-blue-600">
+              </Link>
+              <Link to="/#about" className="block py-2 px-4 text-gray-700 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>
                 About
-              </a>
-              <a href="#contact" className="block py-2 px-4 text-gray-700 hover:text-blue-600">
+              </Link>
+              <Link to="/#contact" className="block py-2 px-4 text-gray-700 hover:text-blue-600" onClick={() => setIsMobileMenuOpen(false)}>
                 Contact
-              </a>
+              </Link>
             </div>
           </div>
         </div>

@@ -1,15 +1,1 @@
-# Netlify redirects for React Router
 /*    /index.html   200
-
-# Legacy URL redirects (if migrating from old site)
-/rental-roi-calculator.html    /rental-roi-calculator    301
-/brrrr-calculator.html         /brrrr-calculator         301
-/fix-flip-calculator.html      /fix-flip-calculator      301
-/landing-page.html             /                         301
-
-# Force HTTPS
-http://reicalculator.pro/*     https://reicalculator.pro/:splat    301!
-http://www.reicalculator.pro/* https://reicalculator.pro/:splat    301!
-
-# API redirects (for future)
-/api/*    /.netlify/functions/:splat    200
