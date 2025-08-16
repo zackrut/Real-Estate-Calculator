@@ -1,4 +1,4 @@
-# REI Calculator Pro - React Application
+# Real Estate Calculator - React App
 
 A professional React application for real estate investment calculators including Rental Property ROI, BRRRR Strategy, and Fix & Flip Profit analysis.
 
@@ -233,7 +233,7 @@ MIT License - see LICENSE file for details
 
 - 📧 Email: support@reicalculator.pro
 - 📚 Documentation: [docs.reicalculator.pro](https://docs.reicalculator.pro)
-- 🐛 Issues: [GitHub Issues](https://github.com/reicalculatorpro/calculator-app/issues)
+- 🐛 Issues: [GitHub Issues](https://github.com/zackrut/Real-Estate-Calculator/issues)
 
 ---
 
