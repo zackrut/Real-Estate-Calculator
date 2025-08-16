@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#3b82f6" />
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+    
+    <!-- Primary Meta Tags -->
+    <title>REI Calculator Pro - Professional Real Estate Investment Calculators</title>
+    <meta name="title" content="REI Calculator Pro - Professional Real Estate Investment Calculators">
+    <meta name="description" content="Free professional real estate investment calculators including rental property ROI, BRRRR strategy, and fix & flip profit analysis. Make data-driven investment decisions.">
+    <meta name="keywords" content="real estate calculator, investment property calculator, rental ROI, BRRRR calculator, fix and flip calculator">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="author" content="REI Calculator Pro">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://reicalculator.pro/">
+    <meta property="og:title" content="REI Calculator Pro - Professional Real Estate Investment Calculators">
+    <meta property="og:description" content="Free professional real estate investment calculators including rental property ROI, BRRRR strategy, and fix & flip profit analysis.">
+    <meta property="og:image" content="%PUBLIC_URL%/social-preview.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="REI Calculator Pro">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://reicalculator.pro/">
+    <meta property="twitter:title" content="REI Calculator Pro - Professional Real Estate Investment Calculators">
+    <meta property="twitter:description" content="Free professional real estate investment calculators including rental property ROI, BRRRR strategy, and fix & flip profit analysis.">
+    <meta property="twitter:image" content="%PUBLIC_URL%/social-preview.jpg">
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="%PUBLIC_URL%/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/favicon-16x16.png">
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    
+    <!-- Critical CSS -->
+    <style>
+      /* Critical styles for above-the-fold content */
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+          'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+          sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background-color: #f9fafb;
+      }
+      
+      .loading-spinner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #10b981 100%);
+      }
+      
+      .spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid rgba(255,255,255,0.3);
+        border-radius: 50%;
+        border-top-color: white;
+        animation: spin 1s ease-in-out infinite;
+      }
+      
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+    </style>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'GA_MEASUREMENT_ID', {
+        page_title: document.title,
+        page_location: window.location.href
+      });
+    </script>
+    
+    <!-- Schema.org Organization markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "REI Calculator Pro",
+      "url": "https://reicalculator.pro",
+      "logo": "https://reicalculator.pro/logo.png",
+      "description": "Professional real estate investment calculators for rental property analysis, BRRRR strategy, and fix & flip profit calculations.",
+      "sameAs": [
+        "https://twitter.com/reicalculatorpro",
+        "https://facebook.com/reicalculatorpro"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Customer Service",
+        "email": "support@reicalculator.pro"
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <noscript>
+      <div style="padding: 20px; text-align: center; background: #fee; color: #c53030;">
+        You need to enable JavaScript to run this app.
+      </div>
+    </noscript>
+    
+    <!-- Loading spinner -->
+    <div id="loading" class="loading-spinner">
+      <div class="spinner"></div>
+    </div>
+    
+    <div id="root"></div>
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX" crossorigin="anonymous"></script>
+  </body>
+</html>

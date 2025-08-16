@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REI Calculator Pro - Professional Real Estate Investment Calculators</title>
+    <meta name="description" content="Free professional real estate investment calculators for rental property ROI, BRRRR strategy, fix & flip profits. Make data-driven property investment decisions.">
+    <meta name="keywords" content="real estate calculator, investment property calculator, rental property ROI, BRRRR calculator, fix and flip calculator">
+    <meta name="author" content="REI Calculator Pro">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://reicalculator.pro/">
+    <meta property="og:title" content="REI Calculator Pro - Professional Real Estate Investment Calculators">
+    <meta property="og:description" content="Free professional real estate investment calculators for rental property ROI, BRRRR strategy, fix & flip profits.">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://reicalculator.pro/">
+    <meta property="twitter:title" content="REI Calculator Pro - Professional Real Estate Investment Calculators">
+    <meta property="twitter:description" content="Free professional real estate investment calculators for rental property ROI, BRRRR strategy, fix & flip profits.">
+    
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #10b981 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.6s ease-out;
+        }
+        
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.6s ease-out;
+        }
+        
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .pulse-glow {
+            animation: pulse-glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes pulse-glow {
+            from { box-shadow: 0 0 20px rgba(16, 185, 129, 0.3); }
+            to { box-shadow: 0 0 30px rgba(16, 185, 129, 0.6); }
+        }
+        
+        .typing-animation {
+            overflow: hidden;
+            border-right: 3px solid #10b981;
+            white-space: nowrap;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #10b981; }
+        }
+        
+        .calculator-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.2);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.2);
+        }
+        
+        .nav-link {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #10b981;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .dropdown {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .chart-animation {
+            animation: chart-grow 2s ease-out forwards;
+        }
+        
+        @keyframes chart-grow {
+            from {
+                transform: scaleY(0);
+                transform-origin: bottom;
+            }
+            to {
+                transform: scaleY(1);
+                transform-origin: bottom;
+            }
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <div id="root"></div>
+    
+    <!-- Google Analytics Placeholder -->
+    <script>
+        // Google Analytics will be added here
+        // gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
+    
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/react-router-dom@6.8.1/dist/umd/react-router-dom.production.min.js"></script>
+    
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+        const { BrowserRouter, Routes, Route, Link, useNavigate } = ReactRouterDOM;
+
+        // Intersection Observer Hook for Animations
+        function useIntersectionObserver(options = {}) {
+            const [isIntersecting, setIsIntersecting] = useState(false);
+            const ref = useRef();
+
+            useEffect(() => {
+                const observer = new IntersectionObserver(([entry]) => {
+                    setIsIntersecting(entry.isIntersecting);
+                }, options);
+
+                if (ref.current) {
+                    observer.observe(ref.current);
+                }
+
+                return () => observer.disconnect();
+            }, [options.threshold, options.rootMargin]);
+
+            return [ref, isIntersecting];
+        }
+
+        // Header Component
+        function Header() {
+            const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+            const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+            return (
+                <header className="bg-white shadow-lg sticky top-0 z-50">
+                    <div className="container mx-auto px-4">
+                        <div className="flex justify-between items-center py-4">
+                            {/* Logo */}
+                            <Link to="/" className="flex items-center space-x-2">
+                                <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-green-500 rounded-lg flex items-center justify-center">
+                                    <i className="fas fa-calculator text-white text-lg"></i>
+                                </div>
+                                <span className="text-2xl font-bold text-gray-800">REI Calculator Pro</span>
+                            </Link>
+
+                            {/* Desktop Navigation */}
+                            <nav className="hidden md:flex items-center space-x-8">
+                                <div className="relative">
+                                    <button
+                                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                                        className="nav-link text-gray-700 hover:text-blue-600 font-medium flex items-center"
+                                    >
+                                        Calculators <i className="fas fa-chevron-down ml-1 text-xs"></i>
+                                    </button>
+                                    <div className={`dropdown absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-xl border ${isDropdownOpen ? 'show' : ''}`}>
+                                        <div className="py-2">
+                                            <a href="index.html" className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600">
+                                                <i className="fas fa-home w-5"></i> Rental Property ROI
+                                            </a>
+                                            <a href="brrrr-calculator.html" className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600">
+                                                <i className="fas fa-sync w-5"></i> BRRRR Strategy
+                                            </a>
+                                            <a href="fix-flip-calculator.html" className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600">
+                                                <i className="fas fa-hammer w-5"></i> Fix & Flip Profit
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="#guides" className="nav-link text-gray-700 hover:text-blue-600 font-medium">Guides</a>
+                                <a href="#about" className="nav-link text-gray-700 hover:text-blue-600 font-medium">About</a>
+                                <a href="#contact" className="nav-link text-gray-700 hover:text-blue-600 font-medium">Contact</a>
+                                <button className="bg-gradient-to-r from-blue-600 to-green-500 text-white px-6 py-2 rounded-lg font-semibold hover:shadow-lg transition-all duration-300">
+                                    Pro Version
+                                </button>
+                            </nav>
+
+                            {/* Mobile Menu Button */}
+                            <button 
+                                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                                className="md:hidden text-gray-700"
+                            >
+                                <i className={`fas ${isMobileMenuOpen ? 'fa-times' : 'fa-bars'} text-xl`}></i>
+                            </button>
+                        </div>
+
+                        {/* Mobile Navigation */}
+                        <div className={`md:hidden ${isMobileMenuOpen ? 'block' : 'hidden'} pb-4`}>
+                            <div className="space-y-2">
+                                <a href="index.html" className="block py-2 text-gray-700 hover:text-blue-600">Rental Property ROI</a>
+                                <a href="brrrr-calculator.html" className="block py-2 text-gray-700 hover:text-blue-600">BRRRR Strategy</a>
+                                <a href="fix-flip-calculator.html" className="block py-2 text-gray-700 hover:text-blue-600">Fix & Flip Profit</a>
+                                <a href="#guides" className="block py-2 text-gray-700 hover:text-blue-600">Guides</a>
+                                <a href="#about" className="block py-2 text-gray-700 hover:text-blue-600">About</a>
+                                <a href="#contact" className="block py-2 text-gray-700 hover:text-blue-600">Contact</a>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+            );
+        }
+
+        // Hero Section Component
+        function HeroSection() {
+            const [heroRef, heroVisible] = useIntersectionObserver({ threshold: 0.3 });
+
+            return (
+                <section ref={heroRef} className="hero-gradient text-white py-20 overflow-hidden relative">
+                    <div className="absolute inset-0 bg-black opacity-10"></div>
+                    <div className="container mx-auto px-4 relative z-10">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                            <div className={`${heroVisible ? 'slide-in-left visible' : 'slide-in-left'}`}>
+                                <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                                    Professional Real Estate 
+                                    <span className="block text-green-400">Investment Calculators</span>
+                                </h1>
+                                <p className="text-xl md:text-2xl mb-8 text-blue-100">
+                                    Make Data-Driven Property Investment Decisions
+                                </p>
+                                
+                                {/* Feature Badges */}
+                                <div className="flex flex-wrap gap-4 mb-8">
+                                    <div className="bg-green-500 bg-opacity-20 backdrop-filter backdrop-blur-lg border border-green-400 border-opacity-30 px-4 py-2 rounded-full">
+                                        <i className="fas fa-check text-green-400 mr-2"></i>
+                                        <span className="font-semibold">100% Free</span>
+                                    </div>
+                                    <div className="bg-blue-500 bg-opacity-20 backdrop-filter backdrop-blur-lg border border-blue-400 border-opacity-30 px-4 py-2 rounded-full">
+                                        <i className="fas fa-user-slash text-blue-400 mr-2"></i>
+                                        <span className="font-semibold">No Sign-up Required</span>
+                                    </div>
+                                    <div className="bg-purple-500 bg-opacity-20 backdrop-filter backdrop-blur-lg border border-purple-400 border-opacity-30 px-4 py-2 rounded-full">
+                                        <i className="fas fa-bolt text-purple-400 mr-2"></i>
+                                        <span className="font-semibold">Instant Results</span>
+                                    </div>
+                                </div>
+
+                                <div className="flex flex-col sm:flex-row gap-4">
+                                    <a href="#calculators" className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 hover:shadow-xl pulse-glow text-center">
+                                        Start Calculating
+                                    </a>
+                                    <a href="#learn-more" className="border-2 border-white text-white hover:bg-white hover:text-blue-900 px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 text-center">
+                                        Learn More
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div className={`${heroVisible ? 'slide-in-right visible' : 'slide-in-right'} relative`}>
+                                {/* Animated Chart/Calculator Preview */}
+                                <div className="floating">
+                                    <div className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-2xl p-8 border border-white border-opacity-20">
+                                        <div className="text-center mb-6">
+                                            <h3 className="text-2xl font-bold mb-2">Sample ROI Analysis</h3>
+                                            <p className="text-blue-200">Real-time calculations</p>
+                                        </div>
+                                        
+                                        {/* Mock Chart */}
+                                        <div className="space-y-4">
+                                            <div className="flex justify-between items-center">
+                                                <span>Monthly Cash Flow:</span>
+                                                <span className="text-green-400 font-bold">+$1,250</span>
+                                            </div>
+                                            <div className="flex justify-between items-center">
+                                                <span>Cap Rate:</span>
+                                                <span className="text-blue-400 font-bold">8.5%</span>
+                                            </div>
+                                            <div className="flex justify-between items-center">
+                                                <span>ROI:</span>
+                                                <span className="text-purple-400 font-bold">15.2%</span>
+                                            </div>
+                                            
+                                            {/* Progress bars */}
+                                            <div className="space-y-2 mt-6">
+                                                <div className="bg-white bg-opacity-20 h-2 rounded-full overflow-hidden">
+                                                    <div className="chart-animation bg-green-400 h-full w-3/4"></div>
+                                                </div>
+                                                <div className="bg-white bg-opacity-20 h-2 rounded-full overflow-hidden">
+                                                    <div className="chart-animation bg-blue-400 h-full w-2/3" style={{animationDelay: '0.5s'}}></div>
+                                                </div>
+                                                <div className="bg-white bg-opacity-20 h-2 rounded-full overflow-hidden">
+                                                    <div className="chart-animation bg-purple-400 h-full w-4/5" style={{animationDelay: '1s'}}></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+
+        // Calculator Cards Component
+        function CalculatorCards() {
+            const [cardsRef, cardsVisible] = useIntersectionObserver({ threshold: 0.2 });
+
+            const calculators = [
+                {
+                    id: 'rental-roi',
+                    title: 'Rental Property ROI',
+                    description: 'Analyze rental property investments with comprehensive cash flow, cap rate, and return calculations.',
+                    icon: 'fas fa-home',
+                    badge: 'Popular',
+                    badgeColor: 'bg-green-500',
+                    link: 'index.html'
+                },
+                {
+                    id: 'brrrr',
+                    title: 'BRRRR Strategy',
+                    description: 'Calculate capital recovery and infinite returns for Buy, Rehab, Rent, Refinance, Repeat strategy.',
+                    icon: 'fas fa-sync',
+                    badge: 'New',
+                    badgeColor: 'bg-blue-500',
+                    link: 'brrrr-calculator.html'
+                },
+                {
+                    id: 'fix-flip',
+                    title: 'Fix & Flip Profit',
+                    description: 'Determine profitability of house flipping projects with detailed cost breakdowns and timeline analysis.',
+                    icon: 'fas fa-hammer',
+                    badge: 'Popular',
+                    badgeColor: 'bg-green-500',
+                    link: 'fix-flip-calculator.html'
+                },
+                {
+                    id: 'coming-soon',
+                    title: 'Wholesale Calculator',
+                    description: 'Calculate wholesale assignment fees and profit margins for real estate wholesaling deals.',
+                    icon: 'fas fa-handshake',
+                    badge: 'Coming Soon',
+                    badgeColor: 'bg-gray-500',
+                    link: '#'
+                }
+            ];
+
+            return (
+                <section id="calculators" ref={cardsRef} className="py-20 bg-gray-50">
+                    <div className="container mx-auto px-4">
+                        <div className={`text-center mb-16 ${cardsVisible ? 'fade-in visible' : 'fade-in'}`}>
+                            <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                                Professional Investment Calculators
+                            </h2>
+                            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                                Choose from our comprehensive suite of real estate investment calculators, 
+                                designed by professionals for serious investors.
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                            {calculators.map((calc, index) => (
+                                <div 
+                                    key={calc.id}
+                                    className={`card-hover bg-white rounded-2xl p-8 shadow-lg border border-gray-100 relative overflow-hidden ${cardsVisible ? 'fade-in visible' : 'fade-in'}`}
+                                    style={{animationDelay: `${index * 0.2}s`}}
+                                >
+                                    {/* Badge */}
+                                    <div className={`absolute top-4 right-4 ${calc.badgeColor} text-white px-3 py-1 rounded-full text-sm font-semibold`}>
+                                        {calc.badge}
+                                    </div>
+
+                                    {/* Icon */}
+                                    <div className="calculator-icon">
+                                        <i className={`${calc.icon} text-white text-3xl`}></i>
+                                    </div>
+
+                                    {/* Content */}
+                                    <h3 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+                                        {calc.title}
+                                    </h3>
+                                    <p className="text-gray-600 mb-8 text-center leading-relaxed">
+                                        {calc.description}
+                                    </p>
+
+                                    {/* Buttons */}
+                                    <div className="flex flex-col sm:flex-row gap-3">
+                                        <a 
+                                            href={calc.link}
+                                            className={`flex-1 text-center py-3 px-6 rounded-lg font-semibold transition-all duration-300 ${
+                                                calc.id === 'coming-soon' 
+                                                    ? 'bg-gray-300 text-gray-500 cursor-not-allowed' 
+                                                    : 'bg-blue-600 hover:bg-blue-700 text-white hover:shadow-lg'
+                                            }`}
+                                        >
+                                            {calc.id === 'coming-soon' ? 'Coming Soon' : 'Calculate Now'}
+                                        </a>
+                                        <button className="flex-1 border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white py-3 px-6 rounded-lg font-semibold transition-all duration-300">
+                                            Learn More
+                                        </button>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+
+        // Trust Indicators Component
+        function TrustIndicators() {
+            const [trustRef, trustVisible] = useIntersectionObserver({ threshold: 0.3 });
+
+            const testimonials = [
+                {
+                    name: "Sarah Johnson",
+                    role: "Real Estate Investor",
+                    content: "These calculators have transformed how I analyze deals. The BRRRR calculator alone has saved me thousands by helping me identify profitable refinance opportunities.",
+                    avatar: "SJ"
+                },
+                {
+                    name: "Mike Chen",
+                    role: "Fix & Flip Specialist",
+                    content: "The fix & flip calculator is incredibly detailed. It accounts for everything - even the 70% rule validation. Essential tool for any serious flipper.",
+                    avatar: "MC"
+                },
+                {
+                    name: "Lisa Rodriguez",
+                    role: "Portfolio Investor",
+                    content: "I use the rental ROI calculator for every property I evaluate. The ability to share results with my business partner has streamlined our decision process.",
+                    avatar: "LR"
+                }
+            ];
+
+            return (
+                <section ref={trustRef} className="py-20 bg-blue-900 text-white">
+                    <div className="container mx-auto px-4">
+                        <div className={`text-center mb-16 ${trustVisible ? 'fade-in visible' : 'fade-in'}`}>
+                            <div className="text-6xl font-bold text-green-400 mb-2">10,000+</div>
+                            <p className="text-2xl text-blue-200 mb-8">Real Estate Investors Trust Our Calculators</p>
+                            
+                            {/* Featured In Section */}
+                            <div className="mb-12">
+                                <p className="text-lg text-blue-200 mb-6">Featured In:</p>
+                                <div className="flex justify-center items-center space-x-12 opacity-60">
+                                    <div className="bg-white bg-opacity-20 px-6 py-3 rounded-lg">Forbes</div>
+                                    <div className="bg-white bg-opacity-20 px-6 py-3 rounded-lg">BiggerPockets</div>
+                                    <div className="bg-white bg-opacity-20 px-6 py-3 rounded-lg">REI Network</div>
+                                    <div className="bg-white bg-opacity-20 px-6 py-3 rounded-lg">InvestorPlace</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Testimonials */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                            {testimonials.map((testimonial, index) => (
+                                <div 
+                                    key={index}
+                                    className={`testimonial-card p-6 rounded-xl ${trustVisible ? 'fade-in visible' : 'fade-in'}`}
+                                    style={{animationDelay: `${index * 0.3}s`}}
+                                >
+                                    <div className="flex items-center mb-4">
+                                        <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white font-bold mr-4">
+                                            {testimonial.avatar}
+                                        </div>
+                                        <div>
+                                            <h4 className="font-semibold">{testimonial.name}</h4>
+                                            <p className="text-blue-200 text-sm">{testimonial.role}</p>
+                                        </div>
+                                    </div>
+                                    <p className="text-blue-100 italic">"{testimonial.content}"</p>
+                                    <div className="flex text-yellow-400 mt-4">
+                                        {[...Array(5)].map((_, i) => (
+                                            <i key={i} className="fas fa-star"></i>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+
+        // Features Section Component
+        function FeaturesSection() {
+            const [featuresRef, featuresVisible] = useIntersectionObserver({ threshold: 0.3 });
+
+            const features = [
+                {
+                    title: "Comprehensive Analysis",
+                    description: "Get detailed insights with multiple metrics including cash flow, ROI, cap rates, and break-even analysis.",
+                    icon: "fas fa-chart-line"
+                },
+                {
+                    title: "Save & Share Results",
+                    description: "Export calculations to PDF, print professional reports, and share results via shareable URLs.",
+                    icon: "fas fa-share-alt"
+                },
+                {
+                    title: "Mobile Friendly",
+                    description: "Access all calculators from any device. Fully responsive design works perfectly on phones and tablets.",
+                    icon: "fas fa-mobile-alt"
+                }
+            ];
+
+            return (
+                <section id="learn-more" ref={featuresRef} className="py-20 bg-white">
+                    <div className="container mx-auto px-4">
+                        <div className={`text-center mb-16 ${featuresVisible ? 'fade-in visible' : 'fade-in'}`}>
+                            <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                                Why Choose Our Calculators?
+                            </h2>
+                            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                                Built by real estate professionals for serious investors who need accurate, 
+                                comprehensive analysis tools.
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-6xl mx-auto">
+                            {features.map((feature, index) => (
+                                <div 
+                                    key={index}
+                                    className={`text-center ${featuresVisible ? 'fade-in visible' : 'fade-in'}`}
+                                    style={{animationDelay: `${index * 0.2}s`}}
+                                >
+                                    <div className="feature-icon mx-auto">
+                                        <i className={`${feature.icon} text-white text-2xl`}></i>
+                                    </div>
+                                    <h3 className="text-2xl font-bold text-gray-800 mb-4">{feature.title}</h3>
+                                    <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+
+        // Educational Content Component
+        function EducationalContent() {
+            const [contentRef, contentVisible] = useIntersectionObserver({ threshold: 0.3 });
+
+            const articles = [
+                {
+                    title: "Understanding the 1% Rule in Real Estate Investing",
+                    excerpt: "Learn how to use the 1% rule to quickly evaluate rental property investments and avoid costly mistakes.",
+                    readTime: "5 min read",
+                    category: "Investment Strategy"
+                },
+                {
+                    title: "BRRRR Strategy: Complete Guide for Beginners",
+                    excerpt: "Master the Buy, Rehab, Rent, Refinance, Repeat strategy with this comprehensive step-by-step guide.",
+                    readTime: "8 min read",
+                    category: "Strategy Guide"
+                },
+                {
+                    title: "Fix & Flip: How to Calculate Maximum Purchase Price",
+                    excerpt: "Discover the formulas and strategies to determine the maximum price you should pay for a flip property.",
+                    readTime: "6 min read",
+                    category: "Fix & Flip"
+                }
+            ];
+
+            return (
+                <section id="guides" ref={contentRef} className="py-20 bg-gray-50">
+                    <div className="container mx-auto px-4">
+                        <div className={`text-center mb-16 ${contentVisible ? 'fade-in visible' : 'fade-in'}`}>
+                            <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                                Latest Investment Guides
+                            </h2>
+                            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                                Stay informed with our latest articles on real estate investment strategies, 
+                                market analysis, and calculator tutorials.
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-12">
+                            {articles.map((article, index) => (
+                                <div 
+                                    key={index}
+                                    className={`card-hover bg-white rounded-xl p-6 shadow-lg border border-gray-100 ${contentVisible ? 'fade-in visible' : 'fade-in'}`}
+                                    style={{animationDelay: `${index * 0.2}s`}}
+                                >
+                                    <div className="mb-4">
+                                        <span className="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full font-semibold">
+                                            {article.category}
+                                        </span>
+                                    </div>
+                                    <h3 className="text-xl font-bold text-gray-800 mb-3">{article.title}</h3>
+                                    <p className="text-gray-600 mb-4 leading-relaxed">{article.excerpt}</p>
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-gray-500 text-sm">{article.readTime}</span>
+                                        <a href="#" className="text-blue-600 hover:text-blue-700 font-semibold">
+                                            Read More →
+                                        </a>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div className="text-center">
+                            <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover:shadow-lg">
+                                View All Guides
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+
+        // Newsletter Component
+        function Newsletter() {
+            const [email, setEmail] = useState('');
+            const [subscribed, setSubscribed] = useState(false);
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                // Newsletter signup logic will be added here
+                setSubscribed(true);
+                setEmail('');
+            };
+
+            return (
+                <section className="py-20 bg-gradient-to-r from-blue-600 to-green-500">
+                    <div className="container mx-auto px-4 text-center">
+                        <h2 className="text-4xl font-bold text-white mb-4">
+                            Stay Updated with Market Insights
+                        </h2>
+                        <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+                            Get weekly real estate investment tips, market analysis, and new calculator features 
+                            delivered to your inbox.
+                        </p>
+
+                        {subscribed ? (
+                            <div className="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-lg p-6 max-w-md mx-auto">
+                                <i className="fas fa-check-circle text-green-300 text-3xl mb-4"></i>
+                                <p className="text-white font-semibold">Thanks for subscribing!</p>
+                            </div>
+                        ) : (
+                            <form onSubmit={handleSubmit} className="max-w-md mx-auto">
+                                <div className="flex flex-col sm:flex-row gap-4">
+                                    <input
+                                        type="email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        placeholder="Enter your email"
+                                        className="flex-1 px-6 py-4 rounded-lg text-gray-800 focus:outline-none focus:ring-4 focus:ring-white focus:ring-opacity-50"
+                                        required
+                                    />
+                                    <button
+                                        type="submit"
+                                        className="bg-white text-blue-600 px-8 py-4 rounded-lg font-bold hover:bg-gray-100 transition-all duration-300 hover:shadow-lg"
+                                    >
+                                        Subscribe
+                                    </button>
+                                </div>
+                            </form>
+                        )}
+                    </div>
+                </section>
+            );
+        }
+
+        // Footer Component
+        function Footer() {
+            return (
+                <footer className="bg-gray-900 text-gray-300">
+                    {/* Ad Space */}
+                    <div className="bg-gray-300 h-24 flex items-center justify-center">
+                        <span className="text-gray-600 font-semibold">Ad Space (728x90)</span>
+                    </div>
+
+                    <div className="container mx-auto px-4 py-16">
+                        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                            {/* Company Info */}
+                            <div>
+                                <div className="flex items-center space-x-2 mb-4">
+                                    <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-green-500 rounded-lg flex items-center justify-center">
+                                        <i className="fas fa-calculator text-white"></i>
+                                    </div>
+                                    <span className="text-xl font-bold text-white">REI Calculator Pro</span>
+                                </div>
+                                <p className="text-gray-400 mb-4 leading-relaxed">
+                                    Professional real estate investment calculators trusted by thousands of investors worldwide.
+                                </p>
+                                <div className="flex space-x-4">
+                                    <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                                        <i className="fab fa-facebook text-xl"></i>
+                                    </a>
+                                    <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                                        <i className="fab fa-twitter text-xl"></i>
+                                    </a>
+                                    <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                                        <i className="fab fa-linkedin text-xl"></i>
+                                    </a>
+                                    <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                                        <i className="fab fa-youtube text-xl"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                            {/* Calculator Links */}
+                            <div>
+                                <h3 className="text-white font-semibold mb-4">Calculators</h3>
+                                <ul className="space-y-2">
+                                    <li><a href="index.html" className="hover:text-white transition-colors">Rental Property ROI</a></li>
+                                    <li><a href="brrrr-calculator.html" className="hover:text-white transition-colors">BRRRR Strategy</a></li>
+                                    <li><a href="fix-flip-calculator.html" className="hover:text-white transition-colors">Fix & Flip Profit</a></li>
+                                    <li><a href="#" className="hover:text-white transition-colors">Wholesale Calculator <span className="text-xs text-gray-500">(Coming Soon)</span></a></li>
+                                </ul>
+                            </div>
+
+                            {/* Resources */}
+                            <div>
+                                <h3 className="text-white font-semibold mb-4">Resources</h3>
+                                <ul className="space-y-2">
+                                    <li><a href="#" className="hover:text-white transition-colors">Investment Guides</a></li>
+                                    <li><a href="#" className="hover:text-white transition-colors">Market Analysis</a></li>
+                                    <li><a href="#" className="hover:text-white transition-colors">Calculator Tutorials</a></li>
+                                    <li><a href="#" className="hover:text-white transition-colors">Investment Strategies</a></li>
+                                    <li><a href="#" className="hover:text-white transition-colors">FAQ</a></li>
+                                </ul>
+                            </div>
+
+                            {/* Legal */}
+                            <div>
+                                <h3 className="text-white font-semibold mb-4">Legal</h3>
+                                <ul className="space-y-2">
+                                    <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
+                                    <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
+                                    <li><a href="#" className="hover:text-white transition-colors">Disclaimer</a></li>
+                                    <li><a href="#contact" className="hover:text-white transition-colors">Contact Us</a></li>
+                                    <li><a href="#about" className="hover:text-white transition-colors">About</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div className="border-t border-gray-800 mt-12 pt-8 text-center">
+                            <p className="text-gray-400">
+                                © 2024 REI Calculator Pro. All rights reserved. | 
+                                <span className="text-sm"> Not financial advice. Consult professionals for investment decisions.</span>
+                            </p>
+                        </div>
+                    </div>
+                </footer>
+            );
+        }
+
+        // Main Landing Page Component
+        function LandingPage() {
+            return (
+                <div className="min-h-screen">
+                    <Header />
+                    <HeroSection />
+                    <CalculatorCards />
+                    <TrustIndicators />
+                    <FeaturesSection />
+                    <EducationalContent />
+                    <Newsletter />
+                    <Footer />
+                </div>
+            );
+        }
+
+        // App Component with Router
+        function App() {
+            return (
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/" element={<LandingPage />} />
+                    </Routes>
+                </BrowserRouter>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>

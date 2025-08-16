@@ -1,0 +1,26 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://reicalculator.pro/sitemap.xml
+
+# Disallow admin and sensitive areas (when created)
+Disallow: /admin/
+Disallow: /api/
+Disallow: /tmp/
+Disallow: /*.json$
+
+# Allow all calculators
+Allow: /index.html
+Allow: /brrrr-calculator.html
+Allow: /fix-flip-calculator.html
+Allow: /landing-page.html
+
+# Allow images and assets
+Allow: /images/
+Allow: /css/
+Allow: /js/
+Allow: /fonts/
+
+# Crawl delay (optional)
+Crawl-delay: 1

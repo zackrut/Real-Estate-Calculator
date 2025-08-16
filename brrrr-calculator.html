@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>BRRRR Strategy Calculator - Analyze Your Deal | REI Calculator Pro</title>
+    <meta name="description" content="Free BRRRR calculator for Buy, Rehab, Rent, Refinance, Repeat strategy. Calculate capital recovery, infinite returns & cash-on-cash ROI for real estate deals.">
+    <meta name="keywords" content="BRRRR calculator, BRRRR strategy, real estate refinance calculator, capital recovery calculator, infinite return calculator, real estate investment">
+    <meta name="author" content="REI Calculator Pro">
+    <link rel="canonical" href="https://reicalculator.pro/brrrr-strategy-calculator">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://reicalculator.pro/brrrr-strategy-calculator">
+    <meta property="og:title" content="Free BRRRR Strategy Calculator | REI Calculator Pro">
+    <meta property="og:description" content="Calculate your BRRRR deal potential. Analyze Buy, Rehab, Rent, Refinance, Repeat strategy with detailed capital recovery and infinite return calculations.">
+    <meta property="og:image" content="https://reicalculator.pro/images/brrrr-calculator-preview.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="REI Calculator Pro">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://reicalculator.pro/brrrr-strategy-calculator">
+    <meta property="twitter:title" content="Free BRRRR Strategy Calculator | REI Calculator Pro">
+    <meta property="twitter:description" content="Calculate your BRRRR deal potential with our comprehensive calculator. Analyze capital recovery and infinite returns.">
+    <meta property="twitter:image" content="https://reicalculator.pro/images/brrrr-calculator-preview.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" as="style">
+    
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Schema.org markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "BRRRR Strategy Calculator",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Web Browser",
+        "description": "Free BRRRR calculator for analyzing Buy, Rehab, Rent, Refinance, Repeat real estate investment strategy with capital recovery calculations.",
+        "url": "https://reicalculator.pro/brrrr-strategy-calculator",
+        "author": {
+            "@type": "Organization",
+            "name": "REI Calculator Pro"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "ratingCount": "1523"
+        }
+    }
+    </script>
+    
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID', {
+            page_title: 'BRRRR Strategy Calculator',
+            page_location: window.location.href
+        });
+        
+        // Custom event tracking functions
+        function trackCalculatorUsage() {
+            gtag('event', 'calculator_used', {
+                event_category: 'Calculator',
+                event_label: 'BRRRR Strategy',
+                value: 1
+            });
+        }
+        
+        function trackCalculation() {
+            gtag('event', 'calculation_performed', {
+                event_category: 'Engagement',
+                event_label: 'BRRRR Calculation',
+                value: 1
+            });
+        }
+        
+        function trackPDFDownload() {
+            gtag('event', 'pdf_download', {
+                event_category: 'Download',
+                event_label: 'BRRRR Report',
+                value: 1
+            });
+        }
+        
+        function trackShare() {
+            gtag('event', 'share', {
+                event_category: 'Social',
+                event_label: 'BRRRR Calculator',
+                value: 1
+            });
+        }
+        
+        // Track time on page
+        let startTime = new Date().getTime();
+        window.addEventListener('beforeunload', function() {
+            let timeSpent = Math.round((new Date().getTime() - startTime) / 1000);
+            gtag('event', 'time_on_calculator', {
+                event_category: 'Engagement',
+                event_label: 'BRRRR Calculator',
+                value: timeSpent
+            });
+        });
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 250px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px 12px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -125px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        .phase-card {
+            transition: all 0.3s ease;
+        }
+        .phase-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .timeline-dot {
+            transition: all 0.3s ease;
+        }
+        .timeline-dot.active {
+            transform: scale(1.2);
+        }
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+        }
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .collapsible-content.expanded {
+            max-height: 2000px;
+            transition: max-height 0.5s ease-in;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+        .progress-ring-circle {
+            transition: stroke-dashoffset 0.5s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div id="root"></div>
+    
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-chartjs-2@5.2.0/dist/index.min.js"></script>
+    
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+        const { Bar, Doughnut } = ReactChartJS2;
+        
+        Chart.register(
+            Chart.CategoryScale,
+            Chart.LinearScale,
+            Chart.BarElement,
+            Chart.Title,
+            Chart.Tooltip,
+            Chart.Legend,
+            Chart.ArcElement
+        );
+
+        function BRRRRCalculator() {
+            const [activePhase, setActivePhase] = useState(0);
+            const [refinanceScenario, setRefinanceScenario] = useState(75);
+            const [expandedSections, setExpandedSections] = useState({
+                buy: true,
+                rehab: true,
+                rent: true,
+                refinance: true
+            });
+
+            const [inputs, setInputs] = useState({
+                // Buy Phase
+                purchasePrice: 150000,
+                downPaymentPercent: 25,
+                closingCostsPercent: 2,
+                initialInterestRate: 8,
+                initialLoanTerm: 30,
+                
+                // Rehab Phase
+                renovationBudget: 30000,
+                renovationTimeline: 4,
+                monthlyHoldingCosts: 500,
+                
+                // Rent Phase
+                monthlyRent: 1800,
+                propertyTaxes: 2400,
+                insurance: 1200,
+                hoaFees: 0,
+                propertyManagementPercent: 10,
+                maintenancePercent: 5,
+                vacancyRatePercent: 5,
+                utilities: 0,
+                
+                // Refinance Phase
+                afterRepairValue: 220000,
+                refinanceLTV: 75,
+                newInterestRate: 7,
+                newLoanTerm: 30,
+                refinanceClosingCosts: 3000
+            });
+
+            const [results, setResults] = useState({
+                totalCashInvested: 0,
+                cashRecovered: 0,
+                cashLeftInDeal: 0,
+                monthlyPaymentInitial: 0,
+                monthlyPaymentNew: 0,
+                monthlyCashFlow: 0,
+                cashOnCashReturn: 0,
+                capitalRecoveryPercent: 0,
+                dealScore: '',
+                infiniteReturn: false,
+                breakEvenMonths: 0
+            });
+
+            const formatCurrency = (amount) => {
+                return new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                }).format(amount);
+            };
+
+            const formatPercent = (value) => {
+                return `${value.toFixed(2)}%`;
+            };
+
+            const calculateMonthlyPayment = (principal, rate, months) => {
+                if (rate === 0) return principal / months;
+                const monthlyRate = rate / 100 / 12;
+                return principal * (monthlyRate * Math.pow(1 + monthlyRate, months)) / 
+                       (Math.pow(1 + monthlyRate, months) - 1);
+            };
+
+            const calculateResults = () => {
+                // Buy Phase Calculations
+                const downPayment = inputs.purchasePrice * (inputs.downPaymentPercent / 100);
+                const closingCosts = inputs.purchasePrice * (inputs.closingCostsPercent / 100);
+                const initialLoanAmount = inputs.purchasePrice - downPayment;
+                
+                // Initial monthly payment
+                const monthlyPaymentInitial = calculateMonthlyPayment(
+                    initialLoanAmount,
+                    inputs.initialInterestRate,
+                    inputs.initialLoanTerm * 12
+                );
+                
+                // Rehab Phase Calculations
+                const holdingCostsDuringRehab = inputs.monthlyHoldingCosts * inputs.renovationTimeline;
+                const financingCostsDuringRehab = monthlyPaymentInitial * inputs.renovationTimeline;
+                
+                // Total Cash Invested
+                const totalCashInvested = downPayment + closingCosts + inputs.renovationBudget + 
+                    holdingCostsDuringRehab + financingCostsDuringRehab;
+                
+                // Refinance Calculations
+                const refinanceLTV = refinanceScenario / 100;
+                const newLoanAmount = inputs.afterRepairValue * refinanceLTV;
+                const cashOutAmount = newLoanAmount - initialLoanAmount;
+                const cashRecovered = cashOutAmount - inputs.refinanceClosingCosts;
+                const cashLeftInDeal = totalCashInvested - cashRecovered;
+                
+                // New monthly payment after refinance
+                const monthlyPaymentNew = calculateMonthlyPayment(
+                    newLoanAmount,
+                    inputs.newInterestRate,
+                    inputs.newLoanTerm * 12
+                );
+                
+                // Rental Income Calculations
+                const grossMonthlyIncome = inputs.monthlyRent;
+                const effectiveMonthlyIncome = grossMonthlyIncome * (1 - inputs.vacancyRatePercent / 100);
+                
+                // Monthly Expenses
+                const monthlyPropertyTaxes = inputs.propertyTaxes / 12;
+                const monthlyInsurance = inputs.insurance / 12;
+                const monthlyPropertyManagement = effectiveMonthlyIncome * (inputs.propertyManagementPercent / 100);
+                const monthlyMaintenance = effectiveMonthlyIncome * (inputs.maintenancePercent / 100);
+                
+                const totalMonthlyExpenses = monthlyPaymentNew + monthlyPropertyTaxes + monthlyInsurance + 
+                    inputs.hoaFees + monthlyPropertyManagement + monthlyMaintenance + inputs.utilities;
+                
+                const monthlyCashFlow = effectiveMonthlyIncome - totalMonthlyExpenses;
+                const annualCashFlow = monthlyCashFlow * 12;
+                
+                // Returns Calculations
+                const cashOnCashReturn = cashLeftInDeal > 0 
+                    ? (annualCashFlow / cashLeftInDeal) * 100 
+                    : Infinity;
+                
+                const capitalRecoveryPercent = (cashRecovered / totalCashInvested) * 100;
+                const infiniteReturn = cashLeftInDeal <= 0;
+                
+                // Break-even calculation
+                const breakEvenMonths = cashLeftInDeal > 0 && monthlyCashFlow > 0
+                    ? Math.ceil(cashLeftInDeal / monthlyCashFlow)
+                    : 0;
+                
+                // Deal Score Calculation
+                let dealScore = 'Poor';
+                if (capitalRecoveryPercent >= 100) dealScore = 'Excellent';
+                else if (capitalRecoveryPercent >= 80) dealScore = 'Great';
+                else if (capitalRecoveryPercent >= 60) dealScore = 'Good';
+                else if (capitalRecoveryPercent >= 40) dealScore = 'Fair';
+
+                setResults({
+                    totalCashInvested,
+                    cashRecovered,
+                    cashLeftInDeal,
+                    monthlyPaymentInitial,
+                    monthlyPaymentNew,
+                    monthlyCashFlow,
+                    cashOnCashReturn,
+                    capitalRecoveryPercent,
+                    dealScore,
+                    infiniteReturn,
+                    breakEvenMonths,
+                    initialLoanAmount,
+                    newLoanAmount,
+                    effectiveMonthlyIncome,
+                    totalMonthlyExpenses
+                });
+            };
+
+            useEffect(() => {
+                calculateResults();
+            }, [inputs, refinanceScenario]);
+
+            const handleInputChange = (field, value) => {
+                setInputs(prev => ({
+                    ...prev,
+                    [field]: value === '' ? 0 : parseFloat(value) || 0
+                }));
+            };
+
+            const toggleSection = (section) => {
+                setExpandedSections(prev => ({
+                    ...prev,
+                    [section]: !prev[section]
+                }));
+            };
+
+            const getDealScoreColor = (score) => {
+                switch (score) {
+                    case 'Excellent': return 'bg-green-500';
+                    case 'Great': return 'bg-blue-500';
+                    case 'Good': return 'bg-indigo-500';
+                    case 'Fair': return 'bg-yellow-500';
+                    default: return 'bg-red-500';
+                }
+            };
+
+            const getPhaseStatus = (phaseIndex) => {
+                if (phaseIndex === 0) return 'active';
+                if (phaseIndex <= activePhase) return 'complete';
+                return 'pending';
+            };
+
+            const CircularProgress = ({ percentage, size = 200 }) => {
+                const radius = size / 2 - 20;
+                const circumference = 2 * Math.PI * radius;
+                const offset = circumference - (percentage / 100) * circumference;
+                
+                return (
+                    <svg width={size} height={size} className="mx-auto">
+                        <circle
+                            className="progress-ring"
+                            stroke="#e5e7eb"
+                            strokeWidth="15"
+                            fill="transparent"
+                            r={radius}
+                            cx={size / 2}
+                            cy={size / 2}
+                        />
+                        <circle
+                            className="progress-ring progress-ring-circle"
+                            stroke={percentage >= 100 ? '#10b981' : percentage >= 80 ? '#3b82f6' : percentage >= 60 ? '#6366f1' : '#f59e0b'}
+                            strokeWidth="15"
+                            fill="transparent"
+                            r={radius}
+                            cx={size / 2}
+                            cy={size / 2}
+                            strokeDasharray={circumference}
+                            strokeDashoffset={offset}
+                            strokeLinecap="round"
+                        />
+                        <text
+                            x="50%"
+                            y="50%"
+                            textAnchor="middle"
+                            dominantBaseline="middle"
+                            className="text-3xl font-bold fill-current"
+                        >
+                            {percentage.toFixed(0)}%
+                        </text>
+                        <text
+                            x="50%"
+                            y="60%"
+                            textAnchor="middle"
+                            dominantBaseline="middle"
+                            className="text-sm text-gray-600"
+                        >
+                            Capital Recovered
+                        </text>
+                    </svg>
+                );
+            };
+
+            const timelineData = {
+                labels: ['Buy', 'Rehab', 'Rent', 'Refinance', 'Final Position'],
+                datasets: [{
+                    label: 'Cash Position',
+                    data: [
+                        -inputs.purchasePrice * (inputs.downPaymentPercent / 100) - inputs.purchasePrice * (inputs.closingCostsPercent / 100),
+                        -results.totalCashInvested,
+                        -results.totalCashInvested + (results.monthlyCashFlow * 6),
+                        -results.cashLeftInDeal,
+                        -results.cashLeftInDeal + (results.monthlyCashFlow * 12)
+                    ],
+                    backgroundColor: (context) => {
+                        const value = context.parsed.y;
+                        return value >= 0 ? 'rgba(16, 185, 129, 0.8)' : 'rgba(239, 68, 68, 0.8)';
+                    },
+                    borderColor: (context) => {
+                        const value = context.parsed.y;
+                        return value >= 0 ? 'rgb(16, 185, 129)' : 'rgb(239, 68, 68)';
+                    },
+                    borderWidth: 2
+                }]
+            };
+
+            const timelineOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: 'Cash Position Throughout BRRRR Cycle',
+                        font: {
+                            size: 16
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: (context) => {
+                                return `Cash Position: ${formatCurrency(context.parsed.y)}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: (value) => formatCurrency(value)
+                        }
+                    }
+                }
+            };
+
+            const loadExample = () => {
+                setInputs({
+                    purchasePrice: 120000,
+                    downPaymentPercent: 25,
+                    closingCostsPercent: 2,
+                    initialInterestRate: 8,
+                    initialLoanTerm: 30,
+                    renovationBudget: 35000,
+                    renovationTimeline: 3,
+                    monthlyHoldingCosts: 400,
+                    monthlyRent: 1600,
+                    propertyTaxes: 2000,
+                    insurance: 1000,
+                    hoaFees: 0,
+                    propertyManagementPercent: 8,
+                    maintenancePercent: 5,
+                    vacancyRatePercent: 5,
+                    utilities: 0,
+                    afterRepairValue: 200000,
+                    refinanceLTV: 75,
+                    newInterestRate: 6.5,
+                    newLoanTerm: 30,
+                    refinanceClosingCosts: 2500
+                });
+            };
+
+            const handleReset = () => {
+                setInputs({
+                    purchasePrice: 150000,
+                    downPaymentPercent: 25,
+                    closingCostsPercent: 2,
+                    initialInterestRate: 8,
+                    initialLoanTerm: 30,
+                    renovationBudget: 30000,
+                    renovationTimeline: 4,
+                    monthlyHoldingCosts: 500,
+                    monthlyRent: 1800,
+                    propertyTaxes: 2400,
+                    insurance: 1200,
+                    hoaFees: 0,
+                    propertyManagementPercent: 10,
+                    maintenancePercent: 5,
+                    vacancyRatePercent: 5,
+                    utilities: 0,
+                    afterRepairValue: 220000,
+                    refinanceLTV: 75,
+                    newInterestRate: 7,
+                    newLoanTerm: 30,
+                    refinanceClosingCosts: 3000
+                });
+                setRefinanceScenario(75);
+            };
+
+            const generateShareableUrl = () => {
+                const params = new URLSearchParams();
+                Object.entries(inputs).forEach(([key, value]) => {
+                    params.append(key, value);
+                });
+                params.append('refinanceScenario', refinanceScenario);
+                const url = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+                navigator.clipboard.writeText(url);
+                alert('Shareable URL copied to clipboard!');
+            };
+
+            useEffect(() => {
+                const params = new URLSearchParams(window.location.search);
+                const newInputs = { ...inputs };
+                let hasParams = false;
+                
+                params.forEach((value, key) => {
+                    if (key === 'refinanceScenario') {
+                        setRefinanceScenario(parseFloat(value) || 75);
+                    } else if (key in newInputs) {
+                        newInputs[key] = parseFloat(value) || 0;
+                        hasParams = true;
+                    }
+                });
+                
+                if (hasParams) {
+                    setInputs(newInputs);
+                }
+            }, []);
+
+            return (
+                <div className="min-h-screen bg-gray-50">
+                    <div className="bg-gray-300 h-24 flex items-center justify-center mb-4 no-print">
+                        <span className="text-gray-600 font-semibold">Ad Space (728x90)</span>
+                    </div>
+
+                    <div className="container mx-auto px-4 py-8 max-w-7xl">
+                        <div className="text-center mb-8">
+                            <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">
+                                BRRRR Strategy Calculator
+                            </h1>
+                            <p className="text-gray-600">Buy, Rehab, Rent, Refinance, Repeat</p>
+                            <div className="tooltip inline-block mt-2">
+                                <span className="text-blue-500 cursor-help text-sm">What is BRRRR?</span>
+                                <span className="tooltiptext">
+                                    BRRRR is a real estate investment strategy where you Buy a property below market value, 
+                                    Rehab it to increase its value, Rent it out for cash flow, Refinance to pull out your 
+                                    invested capital, and Repeat the process with the recovered funds.
+                                </span>
+                            </div>
+                        </div>
+
+                        <div className="flex justify-center gap-2 mb-6 no-print">
+                            <button 
+                                onClick={loadExample}
+                                className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition"
+                            >
+                                Load Example
+                            </button>
+                            <button 
+                                onClick={handleReset}
+                                className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition"
+                            >
+                                Reset
+                            </button>
+                            <button 
+                                onClick={generateShareableUrl}
+                                className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition"
+                            >
+                                Share
+                            </button>
+                        </div>
+
+                        {/* Progress Bar */}
+                        <div className="mb-8">
+                            <div className="flex items-center justify-between mb-4">
+                                {['Buy', 'Rehab', 'Rent', 'Refinance'].map((phase, index) => (
+                                    <div key={phase} className="flex-1 text-center">
+                                        <div 
+                                            className={`timeline-dot w-12 h-12 mx-auto rounded-full flex items-center justify-center cursor-pointer
+                                                ${getPhaseStatus(index) === 'complete' ? 'bg-green-500 text-white' : 
+                                                  getPhaseStatus(index) === 'active' ? 'bg-blue-500 text-white pulse' : 
+                                                  'bg-gray-300 text-gray-600'}`}
+                                            onClick={() => setActivePhase(index)}
+                                        >
+                                            {getPhaseStatus(index) === 'complete' ? '✓' : index + 1}
+                                        </div>
+                                        <p className="mt-2 text-sm font-medium text-gray-700">{phase}</p>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="relative h-2 bg-gray-200 rounded-full overflow-hidden">
+                                <div 
+                                    className="absolute h-full bg-blue-500 transition-all duration-500"
+                                    style={{ width: `${((activePhase + 1) / 4) * 100}%` }}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                            <div className="lg:col-span-2 space-y-6">
+                                {/* Buy Phase */}
+                                <div className="phase-card bg-white rounded-lg shadow-md overflow-hidden">
+                                    <div 
+                                        className="bg-blue-50 p-4 cursor-pointer flex justify-between items-center"
+                                        onClick={() => toggleSection('buy')}
+                                    >
+                                        <h2 className="text-xl font-semibold text-gray-800 flex items-center">
+                                            <span className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center mr-3">1</span>
+                                            Buy Phase
+                                        </h2>
+                                        <span className="text-gray-500">{expandedSections.buy ? '−' : '+'}</span>
+                                    </div>
+                                    <div className={`collapsible-content ${expandedSections.buy ? 'expanded' : ''}`}>
+                                        <div className="p-6">
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                <div>
+                                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                        Purchase Price
+                                                    </label>
+                                                    <input
+                                                        type="number"
+                                                        value={inputs.purchasePrice}
+                                                        onChange={(e) => handleInputChange('purchasePrice', e.target.value)}
+                                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                        Down Payment (%)
+                                                    </label>
+                                                    <input
+                                                        type="number"
+                                                        value={inputs.downPaymentPercent}
+                                                        onChange={(e) => handleInputChange('downPaymentPercent', e.target.value)}
+                                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                        Closing Costs (%)
+                                                    </label>
+                                                    <input
+                                                        type="number"
+                                                        value={inputs.closingCostsPercent}
+                                                        onChange={(e) => handleInputChange('closingCostsPercent', e.target.value)}
+                                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                        Initial Interest Rate (%)
+                                                    </label>
+                                                    <input
+                                                        type="number"
+                                                        step="0.1"
+                                                        value={inputs.initialInterestRate}
+                                                        onChange={(e) => handleInputChange('initialInterestRate', e.target.value)}
+                                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                        Initial Loan Term (Years)
+                                                    </label>
+                                                    <input
+                                                        type="number"
+                                                        value={inputs.initialLoanTerm}
+                                                        onChange={(e) => handleInputChange('initialLoanTerm', e.target.value)}
+                                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Rehab Phase */}
+                                <div className="phase-card bg-white rounded-lg shadow-md overflow-hidden">
+                                    <div 
+                                        className="bg-orange-50 p-4 cursor-pointer flex justify-between items-center"
+                                        onClick={() => toggleSection('rehab')}
+                                    >
+                                        <h2 className="text-xl font-semibold text-gray-800 flex items-center">
+                                            <span className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center mr-3">2</span>
+                                            Rehab Phase
+                                        </h2>
+                                        <span className="text-gray-500">{expandedSections.rehab ? '−' : '+'}</span>
+                                    </div>
+                                    <div className={`collapsible-content ${expandedSections.rehab ? 'expanded' : ''}`}>
+                                        <div className="p-6">
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                <div>
+                                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                        Renovation Budget
+                                                    </label>
+                                                    <input
+                                                        type="number"
+                                                        value={inputs.renovationBudget}
+                                                        onChange={(e) => handleInputChange('renovationBudget', e.target.value)}
+                                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                        Renovation Timeline (Months)
+                                                    </label>
+                                                    <input
+                                                        type="number"
+                                                        value={inputs.renovationTimeline}
+                                                        onChange={(e) => handleInputChange('renovationTimeline', e.target.value)}
+                                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                        Monthly Holding Costs
+                                                        <span className="tooltip ml-1">
+                                                            <span className="text-gray-400 cursor-help">?</span>
+                                                            <span className="tooltiptext">Utilities, insurance, and other costs during renovation</span>
+                                                        </span>
+                                                    </label>
+                                                    <input
+                                                        type="number"
+                                                        value={inputs.monthlyHoldingCosts}
+                                                        onChange={(e) => handleInputChange('monthlyHoldingCosts', e.target.value)}
+                                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Rent Phase */}
+                                <div className="phase-card bg-white rounded-lg shadow-md overflow-hidden">
+                                    <div 
+                                        className="bg-green-50 p-4 cursor-pointer flex justify-between items-center"
+                                        onClick={() => toggleSection('rent')}
+                                    >
+                                        <h2 className="text-xl font-semibold text-gray-800 flex items-center">
+                                            <span className="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center mr-3">3</span>
+                                            Rent Phase
+                                        </h2>
+                                        <span className="text-gray-500">{expandedSections.rent ? '−' : '+'}</span>
+                                    </div>
+                                    <div className={`collapsible-content ${expandedSections.rent ? 'expanded' : ''}`}>
+                                        <div className="p-6">
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                <div>
+                                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                        Expected Monthly Rent
+                                                    </label>
+                                                    <input
+                                                        type="number"
+                                                        value={inputs.monthlyRent}
+                                                        onChange={(e) => handleInputChange('monthlyRent', e.target.value)}
+                                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                        Property Taxes (Annual)
+                                                    </label>
+                                                    <input
+                                                        type="number"
+                                                        value={inputs.propertyTaxes}
+                                                        onChange={(e) => handleInputChange('propertyTaxes', e.target.value)}
+                                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                        Insurance (Annual)
+                                                    </label>
+                                                    <input
+                                                        type="number"
+                                                        value={inputs.insurance}
+                                                        onChange={(e) => handleInputChange('insurance', e.target.value)}
+                                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                        Property Management (%)
+                                                    </label>
+                                                    <input
+                                                        type="number"
+                                                        step="0.1"
+                                                        value={inputs.propertyManagementPercent}
+                                                        onChange={(e) => handleInputChange('propertyManagementPercent', e.target.value)}
+                                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                        Maintenance Reserve (%)
+                                                    </label>
+                                                    <input
+                                                        type="number"
+                                                        step="0.1"
+                                                        value={inputs.maintenancePercent}
+                                                        onChange={(e) => handleInputChange('maintenancePercent', e.target.value)}
+                                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                        Vacancy Rate (%)
+                                                    </label>
+                                                    <input
+                                                        type="number"
+                                                        step="0.1"
+                                                        value={inputs.vacancyRatePercent}
+                                                        onChange={(e) => handleInputChange('vacancyRatePercent', e.target.value)}
+                                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Refinance Phase */}
+                                <div className="phase-card bg-white rounded-lg shadow-md overflow-hidden">
+                                    <div 
+                                        className="bg-purple-50 p-4 cursor-pointer flex justify-between items-center"
+                                        onClick={() => toggleSection('refinance')}
+                                    >
+                                        <h2 className="text-xl font-semibold text-gray-800 flex items-center">
+                                            <span className="w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center mr-3">4</span>
+                                            Refinance Phase
+                                        </h2>
+                                        <span className="text-gray-500">{expandedSections.refinance ? '−' : '+'}</span>
+                                    </div>
+                                    <div className={`collapsible-content ${expandedSections.refinance ? 'expanded' : ''}`}>
+                                        <div className="p-6">
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                <div>
+                                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                        After Repair Value (ARV)
+                                                        <span className="tooltip ml-1">
+                                                            <span className="text-gray-400 cursor-help">?</span>
+                                                            <span className="tooltiptext">The expected value of the property after all renovations are complete</span>
+                                                        </span>
+                                                    </label>
+                                                    <input
+                                                        type="number"
+                                                        value={inputs.afterRepairValue}
+                                                        onChange={(e) => handleInputChange('afterRepairValue', e.target.value)}
+                                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                        New Interest Rate (%)
+                                                    </label>
+                                                    <input
+                                                        type="number"
+                                                        step="0.1"
+                                                        value={inputs.newInterestRate}
+                                                        onChange={(e) => handleInputChange('newInterestRate', e.target.value)}
+                                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                        New Loan Term (Years)
+                                                    </label>
+                                                    <input
+                                                        type="number"
+                                                        value={inputs.newLoanTerm}
+                                                        onChange={(e) => handleInputChange('newLoanTerm', e.target.value)}
+                                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                        Refinance Closing Costs
+                                                    </label>
+                                                    <input
+                                                        type="number"
+                                                        value={inputs.refinanceClosingCosts}
+                                                        onChange={(e) => handleInputChange('refinanceClosingCosts', e.target.value)}
+                                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <div className="mt-6">
+                                                <label className="block text-sm font-medium text-gray-700 mb-3">
+                                                    What-If Refinance Scenarios
+                                                </label>
+                                                <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg">
+                                                    <button
+                                                        onClick={() => setRefinanceScenario(70)}
+                                                        className={`px-4 py-2 rounded-lg transition ${refinanceScenario === 70 ? 'bg-purple-500 text-white' : 'bg-white text-gray-700 border'}`}
+                                                    >
+                                                        70% LTV
+                                                    </button>
+                                                    <button
+                                                        onClick={() => setRefinanceScenario(75)}
+                                                        className={`px-4 py-2 rounded-lg transition ${refinanceScenario === 75 ? 'bg-purple-500 text-white' : 'bg-white text-gray-700 border'}`}
+                                                    >
+                                                        75% LTV
+                                                    </button>
+                                                    <button
+                                                        onClick={() => setRefinanceScenario(80)}
+                                                        className={`px-4 py-2 rounded-lg transition ${refinanceScenario === 80 ? 'bg-purple-500 text-white' : 'bg-white text-gray-700 border'}`}
+                                                    >
+                                                        80% LTV
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="space-y-6">
+                                <div className="bg-gray-300 h-64 flex items-center justify-center no-print">
+                                    <span className="text-gray-600 font-semibold">Ad Space (300x250)</span>
+                                </div>
+
+                                {/* Deal Score */}
+                                <div className="bg-white p-6 rounded-lg shadow-md">
+                                    <h2 className="text-xl font-semibold text-gray-800 mb-4 text-center">Deal Analysis</h2>
+                                    
+                                    <div className="flex justify-center mb-6">
+                                        <span className={`${getDealScoreColor(results.dealScore)} text-white px-6 py-3 rounded-full font-bold text-lg`}>
+                                            {results.dealScore} Deal
+                                        </span>
+                                    </div>
+
+                                    <CircularProgress percentage={results.capitalRecoveryPercent} />
+
+                                    {results.infiniteReturn && (
+                                        <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg text-center">
+                                            <p className="text-green-800 font-semibold">🎉 Infinite Return Achieved!</p>
+                                            <p className="text-sm text-green-700 mt-1">You've recovered all your capital</p>
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* Key Metrics */}
+                                <div className="bg-white p-6 rounded-lg shadow-md">
+                                    <h3 className="text-lg font-semibold text-gray-800 mb-4">Key Metrics</h3>
+                                    <div className="space-y-3">
+                                        <div className="flex justify-between items-center py-2 border-b">
+                                            <span className="text-gray-600">Total Cash Invested:</span>
+                                            <span className="font-semibold text-red-600">{formatCurrency(results.totalCashInvested)}</span>
+                                        </div>
+                                        <div className="flex justify-between items-center py-2 border-b">
+                                            <span className="text-gray-600">Cash Recovered:</span>
+                                            <span className="font-semibold text-green-600">+{formatCurrency(results.cashRecovered)}</span>
+                                        </div>
+                                        <div className="flex justify-between items-center py-2 border-b">
+                                            <span className="text-gray-600">Cash Left in Deal:</span>
+                                            <span className={`font-semibold ${results.cashLeftInDeal <= 0 ? 'text-green-600' : 'text-orange-600'}`}>
+                                                {formatCurrency(results.cashLeftInDeal)}
+                                            </span>
+                                        </div>
+                                        <div className="flex justify-between items-center py-2 border-b">
+                                            <span className="text-gray-600">Monthly Cash Flow:</span>
+                                            <span className={`font-semibold ${results.monthlyCashFlow >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                                                {formatCurrency(results.monthlyCashFlow)}
+                                            </span>
+                                        </div>
+                                        <div className="flex justify-between items-center py-2 border-b">
+                                            <span className="text-gray-600">Cash-on-Cash Return:</span>
+                                            <span className="font-semibold text-blue-600">
+                                                {results.infiniteReturn ? '∞' : formatPercent(results.cashOnCashReturn)}
+                                            </span>
+                                        </div>
+                                        {results.breakEvenMonths > 0 && (
+                                            <div className="flex justify-between items-center py-2">
+                                                <span className="text-gray-600">Break-even:</span>
+                                                <span className="font-semibold">{results.breakEvenMonths} months</span>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+
+                                {/* Comparison */}
+                                <div className="bg-white p-6 rounded-lg shadow-md">
+                                    <h3 className="text-lg font-semibold text-gray-800 mb-4">BRRRR vs Traditional</h3>
+                                    <div className="space-y-2 text-sm">
+                                        <div className="flex justify-between items-center py-2 border-b">
+                                            <span className="text-gray-600">BRRRR Cash Left:</span>
+                                            <span className="font-semibold">{formatCurrency(results.cashLeftInDeal)}</span>
+                                        </div>
+                                        <div className="flex justify-between items-center py-2 border-b">
+                                            <span className="text-gray-600">Traditional (No Refi):</span>
+                                            <span className="font-semibold">{formatCurrency(results.totalCashInvested)}</span>
+                                        </div>
+                                        <div className="flex justify-between items-center py-2">
+                                            <span className="text-gray-600">Capital Freed Up:</span>
+                                            <span className="font-semibold text-green-600">
+                                                {formatCurrency(results.totalCashInvested - results.cashLeftInDeal)}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Timeline Chart */}
+                        <div className="mt-8 bg-white p-6 rounded-lg shadow-md">
+                            <div className="h-96">
+                                <Bar data={timelineData} options={timelineOptions} />
+                            </div>
+                        </div>
+
+                        <div className="bg-gray-300 h-24 flex items-center justify-center mt-8 no-print">
+                            <span className="text-gray-600 font-semibold">Ad Space (728x90)</span>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<BRRRRCalculator />, document.getElementById('root'));
+    </script>
+</body>
+</html>

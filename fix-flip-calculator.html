@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fix & Flip Profit Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 250px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px 12px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -125px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            .print-break {
+                page-break-inside: avoid;
+            }
+        }
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: #e5e7eb;
+            outline: none;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+        .slider:hover {
+            opacity: 1;
+        }
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #3b82f6;
+            cursor: pointer;
+        }
+        .slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #3b82f6;
+            cursor: pointer;
+        }
+        .grade-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .collapsible-content.expanded {
+            max-height: 2000px;
+            transition: max-height 0.5s ease-in;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div id="root"></div>
+    
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-chartjs-2@5.2.0/dist/index.min.js"></script>
+    
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+        const { Pie, Bar } = ReactChartJS2;
+        
+        Chart.register(
+            Chart.CategoryScale,
+            Chart.LinearScale,
+            Chart.BarElement,
+            Chart.ArcElement,
+            Chart.Title,
+            Chart.Tooltip,
+            Chart.Legend
+        );
+
+        function FixFlipCalculator() {
+            const [loanType, setLoanType] = useState('hard_money');
+            const [timeline, setTimeline] = useState(6);
+            const [worstCase, setWorstCase] = useState(false);
+            const [includeTaxes, setIncludeTaxes] = useState(false);
+            const [marketCondition, setMarketCondition] = useState('normal');
+            const [experienceLevel, setExperienceLevel] = useState('intermediate');
+            const [showAdvanced, setShowAdvanced] = useState(false);
+            const [showFinancingComparison, setShowFinancingComparison] = useState(false);
+
+            const [inputs, setInputs] = useState({
+                // Purchase Details
+                purchasePrice: 200000,
+                downPaymentPercent: 20,
+                interestRate: 10,
+                loanPoints: 2,
+                purchaseClosingCosts: 3000,
+                
+                // Renovation
+                renovationBudget: 50000,
+                contingencyPercent: 10,
+                
+                // Monthly Holding Costs
+                propertyTaxesMonthly: 300,
+                insuranceMonthly: 150,
+                utilitiesMonthly: 200,
+                hoaFeesMonthly: 0,
+                
+                // Selling Details
+                afterRepairValue: 325000,
+                realtorCommissionPercent: 6,
+                sellingClosingCostsPercent: 2,
+                stagingCosts: 2000,
+                preSaleRepairs: 1000
+            });
+
+            const [results, setResults] = useState({
+                totalProfit: 0,
+                roi: 0,
+                annualizedROI: 0,
+                profitPerMonth: 0,
+                breakEvenPrice: 0,
+                dealGrade: 'F',
+                totalInvestment: 0,
+                totalCosts: 0,
+                netProceeds: 0,
+                holdingCosts: 0,
+                purchaseCosts: 0,
+                sellingCosts: 0,
+                passes70Rule: false,
+                maxPurchaseFor70Rule: 0
+            });
+
+            const formatCurrency = (amount) => {
+                return new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                }).format(amount);
+            };
+
+            const formatPercent = (value) => {
+                return `${value.toFixed(2)}%`;
+            };
+
+            const getLoanDefaults = (type) => {
+                switch (type) {
+                    case 'hard_money':
+                        return { rate: 10, points: 2, downPayment: 20 };
+                    case 'conventional':
+                        return { rate: 7, points: 1, downPayment: 25 };
+                    case 'cash':
+                        return { rate: 0, points: 0, downPayment: 100 };
+                    default:
+                        return { rate: 10, points: 2, downPayment: 20 };
+                }
+            };
+
+            const getExperienceFactor = (level) => {
+                switch (level) {
+                    case 'beginner':
+                        return { timeFactor: 1.3, costFactor: 1.15 };
+                    case 'intermediate':
+                        return { timeFactor: 1.0, costFactor: 1.0 };
+                    case 'expert':
+                        return { timeFactor: 0.85, costFactor: 0.95 };
+                    default:
+                        return { timeFactor: 1.0, costFactor: 1.0 };
+                }
+            };
+
+            const getMarketFactor = (condition) => {
+                switch (condition) {
+                    case 'hot':
+                        return { sellTimeFactor: 0.7, priceFactor: 1.05 };
+                    case 'normal':
+                        return { sellTimeFactor: 1.0, priceFactor: 1.0 };
+                    case 'cold':
+                        return { sellTimeFactor: 1.5, priceFactor: 0.95 };
+                    default:
+                        return { sellTimeFactor: 1.0, priceFactor: 1.0 };
+                }
+            };
+
+            const calculateDealGrade = (roi, annualizedROI, timeline) => {
+                if (annualizedROI >= 50 && roi >= 25) return 'A+';
+                if (annualizedROI >= 40 && roi >= 20) return 'A';
+                if (annualizedROI >= 30 && roi >= 15) return 'B';
+                if (annualizedROI >= 20 && roi >= 10) return 'C';
+                if (annualizedROI >= 10 && roi >= 5) return 'D';
+                return 'F';
+            };
+
+            const getGradeColor = (grade) => {
+                const colors = {
+                    'A+': 'bg-green-600',
+                    'A': 'bg-green-500',
+                    'B': 'bg-blue-500',
+                    'C': 'bg-yellow-500',
+                    'D': 'bg-orange-500',
+                    'F': 'bg-red-500'
+                };
+                return colors[grade] || 'bg-gray-500';
+            };
+
+            const calculateResults = () => {
+                const experienceFactor = getExperienceFactor(experienceLevel);
+                const marketFactor = getMarketFactor(marketCondition);
+                
+                // Adjust timeline based on experience
+                const adjustedTimeline = timeline * experienceFactor.timeFactor;
+                
+                // Purchase costs
+                const downPayment = inputs.purchasePrice * (inputs.downPaymentPercent / 100);
+                const loanAmount = inputs.purchasePrice - downPayment;
+                const loanPointsCost = loanAmount * (inputs.loanPoints / 100);
+                const totalPurchaseCosts = downPayment + loanPointsCost + inputs.purchaseClosingCosts;
+                
+                // Renovation costs with contingency and experience factor
+                const contingencyAmount = inputs.renovationBudget * (inputs.contingencyPercent / 100);
+                const totalRenovationCost = (inputs.renovationBudget + contingencyAmount) * experienceFactor.costFactor;
+                
+                // Monthly holding costs
+                const monthlyInterest = loanType !== 'cash' ? (loanAmount * (inputs.interestRate / 100)) / 12 : 0;
+                const monthlyHoldingCosts = monthlyInterest + inputs.propertyTaxesMonthly + 
+                    inputs.insuranceMonthly + inputs.utilitiesMonthly + inputs.hoaFeesMonthly;
+                const totalHoldingCosts = monthlyHoldingCosts * adjustedTimeline;
+                
+                // Selling costs
+                let adjustedARV = inputs.afterRepairValue * marketFactor.priceFactor;
+                if (worstCase) {
+                    adjustedARV *= 0.9; // 10% reduction in ARV for worst case
+                }
+                
+                const realtorCommission = adjustedARV * (inputs.realtorCommissionPercent / 100);
+                const sellingClosingCosts = adjustedARV * (inputs.sellingClosingCostsPercent / 100);
+                const totalSellingCosts = realtorCommission + sellingClosingCosts + 
+                    inputs.stagingCosts + inputs.preSaleRepairs;
+                
+                // Total costs
+                let totalCosts = totalPurchaseCosts + totalRenovationCost + totalHoldingCosts + totalSellingCosts;
+                if (worstCase) {
+                    totalCosts *= 1.2; // 20% increase in costs for worst case
+                }
+                
+                // Profit calculations
+                const netProceeds = adjustedARV - totalSellingCosts - loanAmount;
+                const totalProfit = netProceeds - totalPurchaseCosts - totalRenovationCost - totalHoldingCosts;
+                
+                // Tax calculations
+                let afterTaxProfit = totalProfit;
+                if (includeTaxes && totalProfit > 0) {
+                    const taxRate = 0.35; // Approximate short-term capital gains rate
+                    const taxes = totalProfit * taxRate;
+                    afterTaxProfit = totalProfit - taxes;
+                }
+                
+                // ROI calculations
+                const totalInvestment = totalPurchaseCosts + totalRenovationCost;
+                const roi = totalInvestment > 0 ? (afterTaxProfit / totalInvestment) * 100 : 0;
+                const annualizedROI = adjustedTimeline > 0 ? (roi / adjustedTimeline) * 12 : 0;
+                const profitPerMonth = adjustedTimeline > 0 ? afterTaxProfit / adjustedTimeline : 0;
+                
+                // Break-even calculation
+                const breakEvenPrice = totalCosts;
+                
+                // 70% Rule calculation
+                const maxPurchaseFor70Rule = (adjustedARV * 0.7) - totalRenovationCost;
+                const passes70Rule = inputs.purchasePrice <= maxPurchaseFor70Rule;
+                
+                // Deal grade
+                const dealGrade = calculateDealGrade(roi, annualizedROI, adjustedTimeline);
+                
+                setResults({
+                    totalProfit: afterTaxProfit,
+                    roi,
+                    annualizedROI,
+                    profitPerMonth,
+                    breakEvenPrice,
+                    dealGrade,
+                    totalInvestment,
+                    totalCosts,
+                    netProceeds,
+                    holdingCosts: totalHoldingCosts,
+                    purchaseCosts: totalPurchaseCosts,
+                    sellingCosts: totalSellingCosts,
+                    renovationCosts: totalRenovationCost,
+                    passes70Rule,
+                    maxPurchaseFor70Rule,
+                    adjustedTimeline,
+                    adjustedARV,
+                    loanAmount,
+                    monthlyPayment: monthlyInterest
+                });
+            };
+
+            useEffect(() => {
+                calculateResults();
+            }, [inputs, loanType, timeline, worstCase, includeTaxes, marketCondition, experienceLevel]);
+
+            useEffect(() => {
+                const defaults = getLoanDefaults(loanType);
+                setInputs(prev => ({
+                    ...prev,
+                    interestRate: defaults.rate,
+                    loanPoints: defaults.points,
+                    downPaymentPercent: defaults.downPayment
+                }));
+            }, [loanType]);
+
+            const handleInputChange = (field, value) => {
+                setInputs(prev => ({
+                    ...prev,
+                    [field]: value === '' ? 0 : parseFloat(value) || 0
+                }));
+            };
+
+            const pieChartData = {
+                labels: ['Purchase', 'Renovation', 'Holding Costs', 'Selling Costs'],
+                datasets: [{
+                    data: [
+                        results.purchaseCosts,
+                        results.renovationCosts,
+                        results.holdingCosts,
+                        results.sellingCosts
+                    ],
+                    backgroundColor: [
+                        'rgba(59, 130, 246, 0.8)',
+                        'rgba(251, 146, 60, 0.8)',
+                        'rgba(147, 51, 234, 0.8)',
+                        'rgba(236, 72, 153, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgb(59, 130, 246)',
+                        'rgb(251, 146, 60)',
+                        'rgb(147, 51, 234)',
+                        'rgb(236, 72, 153)'
+                    ],
+                    borderWidth: 1
+                }]
+            };
+
+            const pieChartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: (context) => {
+                                const label = context.label || '';
+                                const value = formatCurrency(context.parsed);
+                                const percentage = ((context.parsed / results.totalCosts) * 100).toFixed(1);
+                                return `${label}: ${value} (${percentage}%)`;
+                            }
+                        }
+                    }
+                }
+            };
+
+            const timelineProfitData = () => {
+                const months = [];
+                const profits = [];
+                
+                for (let i = 3; i <= 12; i++) {
+                    months.push(`${i} months`);
+                    const monthlyHoldingCosts = (results.holdingCosts / timeline) * i;
+                    const profit = results.netProceeds - results.purchaseCosts - results.renovationCosts - monthlyHoldingCosts;
+                    profits.push(profit);
+                }
+                
+                return {
+                    labels: months,
+                    datasets: [{
+                        label: 'Profit',
+                        data: profits,
+                        backgroundColor: (context) => {
+                            const value = context.parsed.y;
+                            return value >= 0 ? 'rgba(16, 185, 129, 0.8)' : 'rgba(239, 68, 68, 0.8)';
+                        },
+                        borderColor: (context) => {
+                            const value = context.parsed.y;
+                            return value >= 0 ? 'rgb(16, 185, 129)' : 'rgb(239, 68, 68)';
+                        },
+                        borderWidth: 2
+                    }]
+                };
+            };
+
+            const timelineChartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: 'Profit vs Timeline'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: (context) => {
+                                return `Profit: ${formatCurrency(context.parsed.y)}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: (value) => formatCurrency(value)
+                        }
+                    }
+                }
+            };
+
+            const FinancingComparison = () => {
+                const calculateForLoanType = (type) => {
+                    const defaults = getLoanDefaults(type);
+                    const downPayment = inputs.purchasePrice * (defaults.downPayment / 100);
+                    const loanAmount = inputs.purchasePrice - downPayment;
+                    const loanPointsCost = loanAmount * (defaults.points / 100);
+                    const monthlyInterest = type !== 'cash' ? (loanAmount * (defaults.rate / 100)) / 12 : 0;
+                    const totalInterest = monthlyInterest * timeline;
+                    const totalCashNeeded = downPayment + loanPointsCost + inputs.purchaseClosingCosts + inputs.renovationBudget;
+                    
+                    return {
+                        type,
+                        downPayment,
+                        loanAmount,
+                        totalInterest,
+                        totalCashNeeded,
+                        totalCost: totalCashNeeded + totalInterest
+                    };
+                };
+                
+                const hardMoney = calculateForLoanType('hard_money');
+                const conventional = calculateForLoanType('conventional');
+                const cash = calculateForLoanType('cash');
+                
+                return (
+                    <div className="bg-white p-6 rounded-lg shadow-md mt-6">
+                        <h3 className="text-lg font-semibold text-gray-800 mb-4">Financing Comparison</h3>
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-sm">
+                                <thead>
+                                    <tr className="border-b">
+                                        <th className="text-left py-2">Financing Type</th>
+                                        <th className="text-right py-2">Cash Needed</th>
+                                        <th className="text-right py-2">Total Interest</th>
+                                        <th className="text-right py-2">Total Cost</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr className={`border-b ${loanType === 'hard_money' ? 'bg-blue-50' : ''}`}>
+                                        <td className="py-2">Hard Money (10%, 2 pts)</td>
+                                        <td className="text-right">{formatCurrency(hardMoney.totalCashNeeded)}</td>
+                                        <td className="text-right">{formatCurrency(hardMoney.totalInterest)}</td>
+                                        <td className="text-right font-semibold">{formatCurrency(hardMoney.totalCost)}</td>
+                                    </tr>
+                                    <tr className={`border-b ${loanType === 'conventional' ? 'bg-blue-50' : ''}`}>
+                                        <td className="py-2">Conventional (7%, 1 pt)</td>
+                                        <td className="text-right">{formatCurrency(conventional.totalCashNeeded)}</td>
+                                        <td className="text-right">{formatCurrency(conventional.totalInterest)}</td>
+                                        <td className="text-right font-semibold">{formatCurrency(conventional.totalCost)}</td>
+                                    </tr>
+                                    <tr className={loanType === 'cash' ? 'bg-blue-50' : ''}>
+                                        <td className="py-2">Cash Purchase</td>
+                                        <td className="text-right">{formatCurrency(cash.totalCashNeeded)}</td>
+                                        <td className="text-right">{formatCurrency(0)}</td>
+                                        <td className="text-right font-semibold">{formatCurrency(cash.totalCost)}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                );
+            };
+
+            const loadExample = () => {
+                setInputs({
+                    purchasePrice: 180000,
+                    downPaymentPercent: 20,
+                    interestRate: 10,
+                    loanPoints: 2,
+                    purchaseClosingCosts: 2500,
+                    renovationBudget: 45000,
+                    contingencyPercent: 10,
+                    propertyTaxesMonthly: 250,
+                    insuranceMonthly: 120,
+                    utilitiesMonthly: 180,
+                    hoaFeesMonthly: 0,
+                    afterRepairValue: 290000,
+                    realtorCommissionPercent: 6,
+                    sellingClosingCostsPercent: 2,
+                    stagingCosts: 1500,
+                    preSaleRepairs: 800
+                });
+                setTimeline(5);
+                setLoanType('hard_money');
+            };
+
+            const handleReset = () => {
+                setInputs({
+                    purchasePrice: 200000,
+                    downPaymentPercent: 20,
+                    interestRate: 10,
+                    loanPoints: 2,
+                    purchaseClosingCosts: 3000,
+                    renovationBudget: 50000,
+                    contingencyPercent: 10,
+                    propertyTaxesMonthly: 300,
+                    insuranceMonthly: 150,
+                    utilitiesMonthly: 200,
+                    hoaFeesMonthly: 0,
+                    afterRepairValue: 325000,
+                    realtorCommissionPercent: 6,
+                    sellingClosingCostsPercent: 2,
+                    stagingCosts: 2000,
+                    preSaleRepairs: 1000
+                });
+                setTimeline(6);
+                setLoanType('hard_money');
+                setWorstCase(false);
+                setIncludeTaxes(false);
+                setMarketCondition('normal');
+                setExperienceLevel('intermediate');
+            };
+
+            const generateShareableUrl = () => {
+                const params = new URLSearchParams();
+                Object.entries(inputs).forEach(([key, value]) => {
+                    params.append(key, value);
+                });
+                params.append('timeline', timeline);
+                params.append('loanType', loanType);
+                const url = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+                navigator.clipboard.writeText(url);
+                alert('Shareable URL copied to clipboard!');
+            };
+
+            const handlePrint = () => {
+                window.print();
+            };
+
+            useEffect(() => {
+                const params = new URLSearchParams(window.location.search);
+                const newInputs = { ...inputs };
+                let hasParams = false;
+                
+                params.forEach((value, key) => {
+                    if (key === 'timeline') {
+                        setTimeline(parseInt(value) || 6);
+                    } else if (key === 'loanType') {
+                        setLoanType(value);
+                    } else if (key in newInputs) {
+                        newInputs[key] = parseFloat(value) || 0;
+                        hasParams = true;
+                    }
+                });
+                
+                if (hasParams) {
+                    setInputs(newInputs);
+                }
+            }, []);
+
+            return (
+                <div className="min-h-screen bg-gray-50">
+                    <div className="bg-gray-300 h-24 flex items-center justify-center mb-4 no-print">
+                        <span className="text-gray-600 font-semibold">Ad Space (728x90)</span>
+                    </div>
+
+                    <div className="container mx-auto px-4 py-8 max-w-7xl">
+                        <div className="text-center mb-8">
+                            <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">
+                                Fix & Flip Profit Calculator
+                            </h1>
+                            <p className="text-gray-600">Calculate your house flipping profits with precision</p>
+                        </div>
+
+                        <div className="flex justify-center gap-2 mb-6 no-print">
+                            <button 
+                                onClick={loadExample}
+                                className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition"
+                            >
+                                Load Example
+                            </button>
+                            <button 
+                                onClick={handleReset}
+                                className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition"
+                            >
+                                Reset
+                            </button>
+                            <button 
+                                onClick={generateShareableUrl}
+                                className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition"
+                            >
+                                Share
+                            </button>
+                            <button 
+                                onClick={handlePrint}
+                                className="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg transition"
+                            >
+                                Print Report
+                            </button>
+                        </div>
+
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                            <div className="lg:col-span-2 space-y-6">
+                                {/* Purchase Details */}
+                                <div className="bg-white p-6 rounded-lg shadow-md">
+                                    <h2 className="text-xl font-semibold text-gray-800 mb-4">Purchase Details</h2>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Purchase Price
+                                            </label>
+                                            <input
+                                                type="number"
+                                                value={inputs.purchasePrice}
+                                                onChange={(e) => handleInputChange('purchasePrice', e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Loan Type
+                                            </label>
+                                            <select
+                                                value={loanType}
+                                                onChange={(e) => setLoanType(e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            >
+                                                <option value="hard_money">Hard Money</option>
+                                                <option value="conventional">Conventional</option>
+                                                <option value="cash">Cash</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Down Payment (%)
+                                            </label>
+                                            <input
+                                                type="number"
+                                                value={inputs.downPaymentPercent}
+                                                onChange={(e) => handleInputChange('downPaymentPercent', e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                                disabled={loanType === 'cash'}
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Interest Rate (%)
+                                            </label>
+                                            <input
+                                                type="number"
+                                                step="0.1"
+                                                value={inputs.interestRate}
+                                                onChange={(e) => handleInputChange('interestRate', e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                                disabled={loanType === 'cash'}
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Loan Points
+                                                <span className="tooltip ml-1">
+                                                    <span className="text-gray-400 cursor-help">?</span>
+                                                    <span className="tooltiptext">Upfront fee charged by lender as percentage of loan amount</span>
+                                                </span>
+                                            </label>
+                                            <input
+                                                type="number"
+                                                step="0.5"
+                                                value={inputs.loanPoints}
+                                                onChange={(e) => handleInputChange('loanPoints', e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                                disabled={loanType === 'cash'}
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Closing Costs
+                                            </label>
+                                            <input
+                                                type="number"
+                                                value={inputs.purchaseClosingCosts}
+                                                onChange={(e) => handleInputChange('purchaseClosingCosts', e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Renovation */}
+                                <div className="bg-white p-6 rounded-lg shadow-md">
+                                    <h2 className="text-xl font-semibold text-gray-800 mb-4">Renovation</h2>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Renovation Budget
+                                            </label>
+                                            <input
+                                                type="number"
+                                                value={inputs.renovationBudget}
+                                                onChange={(e) => handleInputChange('renovationBudget', e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Contingency (%)
+                                                <span className="tooltip ml-1">
+                                                    <span className="text-gray-400 cursor-help">?</span>
+                                                    <span className="tooltiptext">Buffer for unexpected costs</span>
+                                                </span>
+                                            </label>
+                                            <input
+                                                type="number"
+                                                value={inputs.contingencyPercent}
+                                                onChange={(e) => handleInputChange('contingencyPercent', e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            />
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="mt-4">
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            Timeline: {timeline} months
+                                        </label>
+                                        <input
+                                            type="range"
+                                            min="3"
+                                            max="12"
+                                            value={timeline}
+                                            onChange={(e) => setTimeline(parseInt(e.target.value))}
+                                            className="slider w-full"
+                                        />
+                                        <div className="flex justify-between text-xs text-gray-500 mt-1">
+                                            <span>3 months</span>
+                                            <span>12 months</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Holding Costs */}
+                                <div className="bg-white p-6 rounded-lg shadow-md">
+                                    <h2 className="text-xl font-semibold text-gray-800 mb-4">Monthly Holding Costs</h2>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Property Taxes
+                                            </label>
+                                            <input
+                                                type="number"
+                                                value={inputs.propertyTaxesMonthly}
+                                                onChange={(e) => handleInputChange('propertyTaxesMonthly', e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Insurance
+                                            </label>
+                                            <input
+                                                type="number"
+                                                value={inputs.insuranceMonthly}
+                                                onChange={(e) => handleInputChange('insuranceMonthly', e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Utilities
+                                            </label>
+                                            <input
+                                                type="number"
+                                                value={inputs.utilitiesMonthly}
+                                                onChange={(e) => handleInputChange('utilitiesMonthly', e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                HOA Fees
+                                            </label>
+                                            <input
+                                                type="number"
+                                                value={inputs.hoaFeesMonthly}
+                                                onChange={(e) => handleInputChange('hoaFeesMonthly', e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Selling Details */}
+                                <div className="bg-white p-6 rounded-lg shadow-md">
+                                    <h2 className="text-xl font-semibold text-gray-800 mb-4">Selling Details</h2>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                After Repair Value (ARV)
+                                                <span className="tooltip ml-1">
+                                                    <span className="text-gray-400 cursor-help">?</span>
+                                                    <span className="tooltiptext">Expected sale price after renovations</span>
+                                                </span>
+                                            </label>
+                                            <input
+                                                type="number"
+                                                value={inputs.afterRepairValue}
+                                                onChange={(e) => handleInputChange('afterRepairValue', e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Realtor Commission (%)
+                                            </label>
+                                            <input
+                                                type="number"
+                                                step="0.5"
+                                                value={inputs.realtorCommissionPercent}
+                                                onChange={(e) => handleInputChange('realtorCommissionPercent', e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Closing Costs (%)
+                                            </label>
+                                            <input
+                                                type="number"
+                                                step="0.5"
+                                                value={inputs.sellingClosingCostsPercent}
+                                                onChange={(e) => handleInputChange('sellingClosingCostsPercent', e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Staging Costs
+                                            </label>
+                                            <input
+                                                type="number"
+                                                value={inputs.stagingCosts}
+                                                onChange={(e) => handleInputChange('stagingCosts', e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Pre-Sale Repairs
+                                            </label>
+                                            <input
+                                                type="number"
+                                                value={inputs.preSaleRepairs}
+                                                onChange={(e) => handleInputChange('preSaleRepairs', e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Scenarios */}
+                                <div className="bg-white p-6 rounded-lg shadow-md">
+                                    <h2 className="text-xl font-semibold text-gray-800 mb-4">Scenarios & Options</h2>
+                                    <div className="space-y-4">
+                                        <label className="flex items-center">
+                                            <input
+                                                type="checkbox"
+                                                checked={worstCase}
+                                                onChange={(e) => setWorstCase(e.target.checked)}
+                                                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                                            />
+                                            <span className="ml-2 text-gray-700">
+                                                Worst Case Scenario
+                                                <span className="text-sm text-gray-500 ml-1">(+20% costs, -10% ARV)</span>
+                                            </span>
+                                        </label>
+                                        <label className="flex items-center">
+                                            <input
+                                                type="checkbox"
+                                                checked={includeTaxes}
+                                                onChange={(e) => setIncludeTaxes(e.target.checked)}
+                                                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                                            />
+                                            <span className="ml-2 text-gray-700">
+                                                Include Short-Term Capital Gains Tax
+                                                <span className="text-sm text-gray-500 ml-1">(~35%)</span>
+                                            </span>
+                                        </label>
+                                        <label className="flex items-center">
+                                            <input
+                                                type="checkbox"
+                                                checked={showFinancingComparison}
+                                                onChange={(e) => setShowFinancingComparison(e.target.checked)}
+                                                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                                            />
+                                            <span className="ml-2 text-gray-700">Show Financing Comparison</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                {/* Advanced Options */}
+                                <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                                    <div 
+                                        className="bg-gray-50 p-4 cursor-pointer flex justify-between items-center"
+                                        onClick={() => setShowAdvanced(!showAdvanced)}
+                                    >
+                                        <h2 className="text-xl font-semibold text-gray-800">Advanced Options</h2>
+                                        <span className="text-gray-500">{showAdvanced ? '−' : '+'}</span>
+                                    </div>
+                                    <div className={`collapsible-content ${showAdvanced ? 'expanded' : ''}`}>
+                                        <div className="p-6">
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                <div>
+                                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                        Market Conditions
+                                                    </label>
+                                                    <select
+                                                        value={marketCondition}
+                                                        onChange={(e) => setMarketCondition(e.target.value)}
+                                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                                    >
+                                                        <option value="hot">Hot Market (+5% price, -30% time)</option>
+                                                        <option value="normal">Normal Market</option>
+                                                        <option value="cold">Cold Market (-5% price, +50% time)</option>
+                                                    </select>
+                                                </div>
+                                                <div>
+                                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                        Experience Level
+                                                    </label>
+                                                    <select
+                                                        value={experienceLevel}
+                                                        onChange={(e) => setExperienceLevel(e.target.value)}
+                                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                                    >
+                                                        <option value="beginner">Beginner (+30% time, +15% costs)</option>
+                                                        <option value="intermediate">Intermediate</option>
+                                                        <option value="expert">Expert (-15% time, -5% costs)</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            
+                                            {/* 70% Rule Validator */}
+                                            <div className="mt-6 p-4 bg-gray-50 rounded-lg">
+                                                <h3 className="font-semibold text-gray-800 mb-2">70% Rule Validator</h3>
+                                                <p className="text-sm text-gray-600 mb-3">
+                                                    Maximum purchase price for 70% rule: {formatCurrency(results.maxPurchaseFor70Rule)}
+                                                </p>
+                                                {results.passes70Rule ? (
+                                                    <div className="text-green-600 font-semibold">✓ Passes 70% Rule</div>
+                                                ) : (
+                                                    <div className="text-red-600 font-semibold">
+                                                        ✗ Fails 70% Rule (overpaying by {formatCurrency(inputs.purchasePrice - results.maxPurchaseFor70Rule)})
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {showFinancingComparison && <FinancingComparison />}
+                            </div>
+
+                            <div className="space-y-6">
+                                <div className="bg-gray-300 h-64 flex items-center justify-center no-print">
+                                    <span className="text-gray-600 font-semibold">Ad Space (300x250)</span>
+                                </div>
+
+                                {/* Deal Analysis */}
+                                <div className="bg-white p-6 rounded-lg shadow-md print-break">
+                                    <h2 className="text-xl font-semibold text-gray-800 mb-4 text-center">Deal Analysis</h2>
+                                    
+                                    <div className="flex justify-center mb-6">
+                                        <div className={`grade-badge ${getGradeColor(results.dealGrade)}`}>
+                                            {results.dealGrade}
+                                        </div>
+                                    </div>
+
+                                    <div className={`text-center text-3xl font-bold mb-6 ${results.totalProfit >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                                        {results.totalProfit >= 0 ? 'Profit: ' : 'Loss: '}
+                                        {formatCurrency(Math.abs(results.totalProfit))}
+                                    </div>
+
+                                    <div className="space-y-3">
+                                        <div className="flex justify-between items-center py-2 border-b">
+                                            <span className="text-gray-600">ROI:</span>
+                                            <span className="font-semibold text-blue-600">{formatPercent(results.roi)}</span>
+                                        </div>
+                                        <div className="flex justify-between items-center py-2 border-b">
+                                            <span className="text-gray-600">Annualized ROI:</span>
+                                            <span className="font-semibold text-purple-600">{formatPercent(results.annualizedROI)}</span>
+                                        </div>
+                                        <div className="flex justify-between items-center py-2 border-b">
+                                            <span className="text-gray-600">Profit/Month:</span>
+                                            <span className="font-semibold">{formatCurrency(results.profitPerMonth)}</span>
+                                        </div>
+                                        <div className="flex justify-between items-center py-2 border-b">
+                                            <span className="text-gray-600">Break-even Price:</span>
+                                            <span className="font-semibold">{formatCurrency(results.breakEvenPrice)}</span>
+                                        </div>
+                                        <div className="flex justify-between items-center py-2">
+                                            <span className="text-gray-600">Total Investment:</span>
+                                            <span className="font-semibold">{formatCurrency(results.totalInvestment)}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Cost Breakdown */}
+                                <div className="bg-white p-6 rounded-lg shadow-md">
+                                    <h3 className="text-lg font-semibold text-gray-800 mb-4">Cost Breakdown</h3>
+                                    <div className="h-64">
+                                        <Pie data={pieChartData} options={pieChartOptions} />
+                                    </div>
+                                    <div className="mt-4 space-y-2 text-sm">
+                                        <div className="flex justify-between">
+                                            <span className="text-gray-600">Total Costs:</span>
+                                            <span className="font-semibold">{formatCurrency(results.totalCosts)}</span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <span className="text-gray-600">Expected Sale Price:</span>
+                                            <span className="font-semibold">{formatCurrency(results.adjustedARV)}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Timeline Impact */}
+                                <div className="bg-white p-6 rounded-lg shadow-md">
+                                    <h3 className="text-lg font-semibold text-gray-800 mb-4">Timeline Impact</h3>
+                                    <div className="h-64">
+                                        <Bar data={timelineProfitData()} options={timelineChartOptions} />
+                                    </div>
+                                    <p className="text-sm text-gray-600 mt-4">
+                                        Each additional month costs approximately {formatCurrency(results.holdingCosts / timeline)} in holding costs
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="bg-gray-300 h-24 flex items-center justify-center mt-8 no-print">
+                            <span className="text-gray-600 font-semibold">Ad Space (728x90)</span>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<FixFlipCalculator />, document.getElementById('root'));
+    </script>
+</body>
+</html>

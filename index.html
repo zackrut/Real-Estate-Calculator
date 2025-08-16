@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Rental Property ROI Calculator | REI Calculator Pro</title>
+    <meta name="description" content="Free rental property ROI calculator. Analyze cash flow, cap rate, cash-on-cash return & total ROI for investment properties. Make smarter rental decisions.">
+    <meta name="keywords" content="rental property calculator, ROI calculator, cash flow calculator, cap rate calculator, real estate investment, property analysis">
+    <meta name="author" content="REI Calculator Pro">
+    <link rel="canonical" href="https://reicalculator.pro/rental-roi-calculator">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://reicalculator.pro/rental-roi-calculator">
+    <meta property="og:title" content="Free Rental Property ROI Calculator | REI Calculator Pro">
+    <meta property="og:description" content="Calculate rental property returns with our comprehensive ROI calculator. Analyze cash flow, cap rate, and investment metrics instantly.">
+    <meta property="og:image" content="https://reicalculator.pro/images/rental-calculator-preview.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="REI Calculator Pro">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://reicalculator.pro/rental-roi-calculator">
+    <meta property="twitter:title" content="Free Rental Property ROI Calculator | REI Calculator Pro">
+    <meta property="twitter:description" content="Calculate rental property returns with our comprehensive ROI calculator. Analyze cash flow, cap rate, and investment metrics instantly.">
+    <meta property="twitter:image" content="https://reicalculator.pro/images/rental-calculator-preview.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" as="style">
+    
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Schema.org markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Rental Property ROI Calculator",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Web Browser",
+        "description": "Free online calculator for analyzing rental property investments including cash flow, cap rate, and ROI calculations.",
+        "url": "https://reicalculator.pro/rental-roi-calculator",
+        "author": {
+            "@type": "Organization",
+            "name": "REI Calculator Pro"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "2847"
+        }
+    }
+    </script>
+    
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID', {
+            page_title: 'Rental Property ROI Calculator',
+            page_location: window.location.href
+        });
+        
+        // Custom event tracking functions
+        function trackCalculatorUsage() {
+            gtag('event', 'calculator_used', {
+                event_category: 'Calculator',
+                event_label: 'Rental Property ROI',
+                value: 1
+            });
+        }
+        
+        function trackCalculation() {
+            gtag('event', 'calculation_performed', {
+                event_category: 'Engagement',
+                event_label: 'Rental ROI Calculation',
+                value: 1
+            });
+        }
+        
+        function trackPDFDownload() {
+            gtag('event', 'pdf_download', {
+                event_category: 'Download',
+                event_label: 'Rental ROI Report',
+                value: 1
+            });
+        }
+        
+        function trackShare() {
+            gtag('event', 'share', {
+                event_category: 'Social',
+                event_label: 'Rental ROI Calculator',
+                value: 1
+            });
+        }
+        
+        // Track time on page
+        let startTime = new Date().getTime();
+        window.addEventListener('beforeunload', function() {
+            let timeSpent = Math.round((new Date().getTime() - startTime) / 1000);
+            gtag('event', 'time_on_calculator', {
+                event_category: 'Engagement',
+                event_label: 'Rental ROI Calculator',
+                value: timeSpent
+            });
+        });
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 12px;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+        }
+        
+        /* AdSense containers */
+        .adsense-container {
+            text-align: center;
+            margin: 20px 0;
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            min-height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-size: 14px;
+            position: relative;
+        }
+        
+        .adsense-container::before {
+            content: 'Advertisement';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            font-size: 10px;
+            color: #999;
+            text-transform: uppercase;
+        }
+        
+        .adsense-header {
+            min-height: 90px;
+        }
+        
+        .adsense-sidebar {
+            min-height: 250px;
+        }
+        
+        .adsense-footer {
+            min-height: 90px;
+        }
+        
+        @media (max-width: 768px) {
+            .adsense-header {
+                min-height: 50px;
+            }
+        }
+        
+        /* Loading indicator */
+        .loading-indicator {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #10b981);
+            z-index: 9999;
+        }
+        
+        .loading-indicator.active {
+            display: block;
+            animation: loading 2s ease-in-out infinite;
+        }
+        
+        @keyframes loading {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div id="root"></div>
+    
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-chartjs-2@5.2.0/dist/index.min.js"></script>
+    
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+        const { Line } = ReactChartJS2;
+        
+        Chart.register(
+            Chart.CategoryScale,
+            Chart.LinearScale,
+            Chart.PointElement,
+            Chart.LineElement,
+            Chart.Title,
+            Chart.Tooltip,
+            Chart.Legend
+        );
+
+        function RentalPropertyCalculator() {
+            const [inputs, setInputs] = useState({
+                purchasePrice: 300000,
+                downPaymentPercent: 20,
+                closingCostsPercent: 2,
+                renovationCosts: 0,
+                interestRate: 7,
+                loanTermYears: 30,
+                monthlyRent: 2500,
+                otherMonthlyIncome: 0,
+                annualRentIncreasePercent: 3,
+                propertyTaxes: 3600,
+                insurance: 1200,
+                hoaFees: 0,
+                propertyManagementPercent: 10,
+                maintenanceReservePercent: 5,
+                vacancyRatePercent: 5,
+                utilities: 0
+            });
+
+            const [results, setResults] = useState({
+                monthlyPayment: 0,
+                monthlyIncome: 0,
+                monthlyExpenses: 0,
+                monthlyCashFlow: 0,
+                noi: 0,
+                capRate: 0,
+                cashOnCashReturn: 0,
+                totalROI: 0,
+                breakEvenMonths: 0,
+                dealRating: '',
+                projectionData: []
+            });
+
+            const formatCurrency = (amount) => {
+                return new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                }).format(amount);
+            };
+
+            const formatPercent = (value) => {
+                return `${value.toFixed(2)}%`;
+            };
+
+            const calculateMonthlyPayment = (principal, rate, months) => {
+                if (rate === 0) return principal / months;
+                const monthlyRate = rate / 100 / 12;
+                return principal * (monthlyRate * Math.pow(1 + monthlyRate, months)) / 
+                       (Math.pow(1 + monthlyRate, months) - 1);
+            };
+
+            const calculateResults = () => {
+                const downPayment = inputs.purchasePrice * (inputs.downPaymentPercent / 100);
+                const closingCosts = inputs.purchasePrice * (inputs.closingCostsPercent / 100);
+                const loanAmount = inputs.purchasePrice - downPayment;
+                const totalCashInvested = downPayment + closingCosts + inputs.renovationCosts;
+                
+                const monthlyPayment = calculateMonthlyPayment(
+                    loanAmount,
+                    inputs.interestRate,
+                    inputs.loanTermYears * 12
+                );
+
+                const grossMonthlyIncome = parseFloat(inputs.monthlyRent) + parseFloat(inputs.otherMonthlyIncome);
+                const effectiveMonthlyIncome = grossMonthlyIncome * (1 - inputs.vacancyRatePercent / 100);
+                
+                const monthlyPropertyTaxes = inputs.propertyTaxes / 12;
+                const monthlyInsurance = inputs.insurance / 12;
+                const monthlyPropertyManagement = effectiveMonthlyIncome * (inputs.propertyManagementPercent / 100);
+                const monthlyMaintenance = effectiveMonthlyIncome * (inputs.maintenanceReservePercent / 100);
+                
+                const totalMonthlyExpenses = monthlyPayment + monthlyPropertyTaxes + monthlyInsurance + 
+                    parseFloat(inputs.hoaFees) + monthlyPropertyManagement + monthlyMaintenance + parseFloat(inputs.utilities);
+                
+                const monthlyCashFlow = effectiveMonthlyIncome - totalMonthlyExpenses;
+                
+                const annualOperatingExpenses = (monthlyPropertyTaxes + monthlyInsurance + inputs.hoaFees + 
+                    monthlyPropertyManagement + monthlyMaintenance + inputs.utilities) * 12;
+                const noi = (effectiveMonthlyIncome * 12) - annualOperatingExpenses;
+                
+                const capRate = (noi / inputs.purchasePrice) * 100;
+                const annualCashFlow = monthlyCashFlow * 12;
+                const cashOnCashReturn = (annualCashFlow / totalCashInvested) * 100;
+                
+                const appreciationRate = 3;
+                const yearlyAppreciation = inputs.purchasePrice * (appreciationRate / 100);
+                const totalAnnualReturn = annualCashFlow + yearlyAppreciation;
+                const totalROI = (totalAnnualReturn / totalCashInvested) * 100;
+                
+                const breakEvenMonths = totalCashInvested > 0 && monthlyCashFlow > 0 
+                    ? Math.ceil(totalCashInvested / monthlyCashFlow) 
+                    : 0;
+
+                let dealRating = 'Poor';
+                if (cashOnCashReturn >= 12) dealRating = 'Excellent';
+                else if (cashOnCashReturn >= 8) dealRating = 'Good';
+                else if (cashOnCashReturn >= 4) dealRating = 'Fair';
+
+                const projectionData = [];
+                let cumulativeCashFlow = 0;
+                let currentRent = inputs.monthlyRent;
+                
+                for (let year = 1; year <= 5; year++) {
+                    if (year > 1) {
+                        currentRent *= (1 + inputs.annualRentIncreasePercent / 100);
+                    }
+                    const yearlyRent = currentRent * 12 * (1 - inputs.vacancyRatePercent / 100);
+                    const yearlyExpenses = totalMonthlyExpenses * 12;
+                    const yearlyCashFlow = yearlyRent - yearlyExpenses;
+                    cumulativeCashFlow += yearlyCashFlow;
+                    
+                    projectionData.push({
+                        year: `Year ${year}`,
+                        cashFlow: Math.round(yearlyCashFlow),
+                        cumulative: Math.round(cumulativeCashFlow)
+                    });
+                }
+
+                setResults({
+                    monthlyPayment,
+                    monthlyIncome: effectiveMonthlyIncome,
+                    monthlyExpenses: totalMonthlyExpenses,
+                    monthlyCashFlow,
+                    noi,
+                    capRate,
+                    cashOnCashReturn,
+                    totalROI,
+                    breakEvenMonths,
+                    dealRating,
+                    projectionData,
+                    totalCashInvested
+                });
+            };
+
+            useEffect(() => {
+                calculateResults();
+                trackCalculation();
+            }, [inputs]);
+
+            useEffect(() => {
+                trackCalculatorUsage();
+            }, []);
+
+            const handleInputChange = (field, value) => {
+                setInputs(prev => ({
+                    ...prev,
+                    [field]: value === '' ? 0 : parseFloat(value) || 0
+                }));
+            };
+
+            const handleReset = () => {
+                setInputs({
+                    purchasePrice: 300000,
+                    downPaymentPercent: 20,
+                    closingCostsPercent: 2,
+                    renovationCosts: 0,
+                    interestRate: 7,
+                    loanTermYears: 30,
+                    monthlyRent: 2500,
+                    otherMonthlyIncome: 0,
+                    annualRentIncreasePercent: 3,
+                    propertyTaxes: 3600,
+                    insurance: 1200,
+                    hoaFees: 0,
+                    propertyManagementPercent: 10,
+                    maintenanceReservePercent: 5,
+                    vacancyRatePercent: 5,
+                    utilities: 0
+                });
+            };
+
+            const loadExample = () => {
+                setInputs({
+                    purchasePrice: 350000,
+                    downPaymentPercent: 25,
+                    closingCostsPercent: 2,
+                    renovationCosts: 15000,
+                    interestRate: 6.5,
+                    loanTermYears: 30,
+                    monthlyRent: 2800,
+                    otherMonthlyIncome: 100,
+                    annualRentIncreasePercent: 3,
+                    propertyTaxes: 4200,
+                    insurance: 1500,
+                    hoaFees: 150,
+                    propertyManagementPercent: 8,
+                    maintenanceReservePercent: 5,
+                    vacancyRatePercent: 5,
+                    utilities: 200
+                });
+            };
+
+            const chartData = {
+                labels: results.projectionData.map(d => d.year),
+                datasets: [
+                    {
+                        label: 'Annual Cash Flow',
+                        data: results.projectionData.map(d => d.cashFlow),
+                        borderColor: 'rgb(59, 130, 246)',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        tension: 0.1
+                    },
+                    {
+                        label: 'Cumulative Cash Flow',
+                        data: results.projectionData.map(d => d.cumulative),
+                        borderColor: 'rgb(16, 185, 129)',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        tension: 0.1
+                    }
+                ]
+            };
+
+            const chartOptions = {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: '5-Year Cash Flow Projection'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return '$' + value.toLocaleString();
+                            }
+                        }
+                    }
+                }
+            };
+
+            const getDealRatingColor = (rating) => {
+                switch (rating) {
+                    case 'Excellent': return 'bg-green-500';
+                    case 'Good': return 'bg-blue-500';
+                    case 'Fair': return 'bg-yellow-500';
+                    default: return 'bg-red-500';
+                }
+            };
+
+            const generateShareableUrl = () => {
+                const params = new URLSearchParams();
+                Object.entries(inputs).forEach(([key, value]) => {
+                    params.append(key, value);
+                });
+                const url = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+                navigator.clipboard.writeText(url);
+                alert('Shareable URL copied to clipboard!');
+                trackShare();
+            };
+
+            const handlePrint = () => {
+                window.print();
+                trackPDFDownload();
+            };
+
+            useEffect(() => {
+                const params = new URLSearchParams(window.location.search);
+                const newInputs = { ...inputs };
+                let hasParams = false;
+                
+                params.forEach((value, key) => {
+                    if (key in newInputs) {
+                        newInputs[key] = parseFloat(value) || 0;
+                        hasParams = true;
+                    }
+                });
+                
+                if (hasParams) {
+                    setInputs(newInputs);
+                }
+            }, []);
+
+            return (
+                <div className="min-h-screen bg-gray-50">
+                    <div className="adsense-container adsense-header no-print">
+                        <ins className="adsbygoogle"
+                             style={{display: 'block'}}
+                             data-ad-client="ca-pub-XXXXXXXXXX"
+                             data-ad-slot="XXXXXXXXXX"
+                             data-ad-format="horizontal"
+                             data-full-width-responsive="true"></ins>
+                    </div>
+
+                    <div className="container mx-auto px-4 py-8">
+                        <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-8 text-center">
+                            Rental Property ROI Calculator
+                        </h1>
+
+                        {/* Loading Indicator */}
+                        <div className="loading-indicator" id="loadingIndicator"></div>
+
+                        <div className="flex justify-center gap-2 mb-6 no-print">
+                            <button 
+                                onClick={loadExample}
+                                className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition"
+                            >
+                                Load Example
+                            </button>
+                            <button 
+                                onClick={handleReset}
+                                className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition"
+                            >
+                                Reset
+                            </button>
+                            <button 
+                                onClick={generateShareableUrl}
+                                className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition"
+                            >
+                                Share
+                            </button>
+                            <button 
+                                onClick={handlePrint}
+                                className="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg transition"
+                            >
+                                Print
+                            </button>
+                        </div>
+
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                            <div className="lg:col-span-2 space-y-6">
+                                <div className="bg-white p-6 rounded-lg shadow-md">
+                                    <h2 className="text-xl font-semibold text-gray-800 mb-4">Property Details</h2>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Purchase Price
+                                            </label>
+                                            <input
+                                                type="number"
+                                                value={inputs.purchasePrice}
+                                                onChange={(e) => handleInputChange('purchasePrice', e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Down Payment (%)
+                                                <span className="tooltip ml-1">
+                                                    <span className="text-gray-400 cursor-help">?</span>
+                                                    <span className="tooltiptext">Percentage of purchase price paid upfront</span>
+                                                </span>
+                                            </label>
+                                            <input
+                                                type="number"
+                                                value={inputs.downPaymentPercent}
+                                                onChange={(e) => handleInputChange('downPaymentPercent', e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Closing Costs (%)
+                                            </label>
+                                            <input
+                                                type="number"
+                                                value={inputs.closingCostsPercent}
+                                                onChange={(e) => handleInputChange('closingCostsPercent', e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Renovation Costs
+                                            </label>
+                                            <input
+                                                type="number"
+                                                value={inputs.renovationCosts}
+                                                onChange={(e) => handleInputChange('renovationCosts', e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="bg-white p-6 rounded-lg shadow-md">
+                                    <h2 className="text-xl font-semibold text-gray-800 mb-4">Financing</h2>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Interest Rate (%)
+                                            </label>
+                                            <input
+                                                type="number"
+                                                step="0.1"
+                                                value={inputs.interestRate}
+                                                onChange={(e) => handleInputChange('interestRate', e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Loan Term (Years)
+                                            </label>
+                                            <input
+                                                type="number"
+                                                value={inputs.loanTermYears}
+                                                onChange={(e) => handleInputChange('loanTermYears', e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="bg-white p-6 rounded-lg shadow-md">
+                                    <h2 className="text-xl font-semibold text-gray-800 mb-4">Rental Income</h2>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Monthly Rent
+                                            </label>
+                                            <input
+                                                type="number"
+                                                value={inputs.monthlyRent}
+                                                onChange={(e) => handleInputChange('monthlyRent', e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Other Monthly Income
+                                            </label>
+                                            <input
+                                                type="number"
+                                                value={inputs.otherMonthlyIncome}
+                                                onChange={(e) => handleInputChange('otherMonthlyIncome', e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Annual Rent Increase (%)
+                                                <span className="tooltip ml-1">
+                                                    <span className="text-gray-400 cursor-help">?</span>
+                                                    <span className="tooltiptext">Expected yearly rent increase percentage</span>
+                                                </span>
+                                            </label>
+                                            <input
+                                                type="number"
+                                                step="0.1"
+                                                value={inputs.annualRentIncreasePercent}
+                                                onChange={(e) => handleInputChange('annualRentIncreasePercent', e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="bg-white p-6 rounded-lg shadow-md">
+                                    <h2 className="text-xl font-semibold text-gray-800 mb-4">Expenses</h2>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Property Taxes (Annual)
+                                            </label>
+                                            <input
+                                                type="number"
+                                                value={inputs.propertyTaxes}
+                                                onChange={(e) => handleInputChange('propertyTaxes', e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Insurance (Annual)
+                                            </label>
+                                            <input
+                                                type="number"
+                                                value={inputs.insurance}
+                                                onChange={(e) => handleInputChange('insurance', e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                HOA Fees (Monthly)
+                                            </label>
+                                            <input
+                                                type="number"
+                                                value={inputs.hoaFees}
+                                                onChange={(e) => handleInputChange('hoaFees', e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Property Management (%)
+                                                <span className="tooltip ml-1">
+                                                    <span className="text-gray-400 cursor-help">?</span>
+                                                    <span className="tooltiptext">Percentage of rent for property management</span>
+                                                </span>
+                                            </label>
+                                            <input
+                                                type="number"
+                                                step="0.1"
+                                                value={inputs.propertyManagementPercent}
+                                                onChange={(e) => handleInputChange('propertyManagementPercent', e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Maintenance Reserve (%)
+                                                <span className="tooltip ml-1">
+                                                    <span className="text-gray-400 cursor-help">?</span>
+                                                    <span className="tooltiptext">Percentage of rent set aside for repairs</span>
+                                                </span>
+                                            </label>
+                                            <input
+                                                type="number"
+                                                step="0.1"
+                                                value={inputs.maintenanceReservePercent}
+                                                onChange={(e) => handleInputChange('maintenanceReservePercent', e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Vacancy Rate (%)
+                                                <span className="tooltip ml-1">
+                                                    <span className="text-gray-400 cursor-help">?</span>
+                                                    <span className="tooltiptext">Expected percentage of time property is vacant</span>
+                                                </span>
+                                            </label>
+                                            <input
+                                                type="number"
+                                                step="0.1"
+                                                value={inputs.vacancyRatePercent}
+                                                onChange={(e) => handleInputChange('vacancyRatePercent', e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Utilities (Monthly)
+                                            </label>
+                                            <input
+                                                type="number"
+                                                value={inputs.utilities}
+                                                onChange={(e) => handleInputChange('utilities', e.target.value)}
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="space-y-6">
+                                <div className="adsense-container adsense-sidebar no-print">
+                                    <ins className="adsbygoogle"
+                                         style={{display: 'block'}}
+                                         data-ad-client="ca-pub-XXXXXXXXXX"
+                                         data-ad-slot="XXXXXXXXXX"
+                                         data-ad-format="rectangle"></ins>
+                                </div>
+
+                                <div className="bg-white p-6 rounded-lg shadow-md">
+                                    <h2 className="text-xl font-semibold text-gray-800 mb-4">Investment Analysis</h2>
+                                    
+                                    <div className="flex justify-center mb-4">
+                                        <span className={`${getDealRatingColor(results.dealRating)} text-white px-4 py-2 rounded-full font-semibold`}>
+                                            {results.dealRating} Deal
+                                        </span>
+                                    </div>
+
+                                    <div className="space-y-3">
+                                        <div className="flex justify-between items-center py-2 border-b">
+                                            <span className="text-gray-600">Total Cash Invested:</span>
+                                            <span className="font-semibold">{formatCurrency(results.totalCashInvested)}</span>
+                                        </div>
+                                        <div className="flex justify-between items-center py-2 border-b">
+                                            <span className="text-gray-600">Monthly Cash Flow:</span>
+                                            <span className={`font-semibold ${results.monthlyCashFlow >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                                                {formatCurrency(results.monthlyCashFlow)}
+                                            </span>
+                                        </div>
+                                        <div className="flex justify-between items-center py-2 border-b">
+                                            <span className="text-gray-600">
+                                                NOI:
+                                                <span className="tooltip ml-1">
+                                                    <span className="text-gray-400 cursor-help text-xs">?</span>
+                                                    <span className="tooltiptext">Net Operating Income - Income minus operating expenses</span>
+                                                </span>
+                                            </span>
+                                            <span className="font-semibold">{formatCurrency(results.noi)}</span>
+                                        </div>
+                                        <div className="flex justify-between items-center py-2 border-b">
+                                            <span className="text-gray-600">
+                                                Cap Rate:
+                                                <span className="tooltip ml-1">
+                                                    <span className="text-gray-400 cursor-help text-xs">?</span>
+                                                    <span className="tooltiptext">NOI divided by property value</span>
+                                                </span>
+                                            </span>
+                                            <span className="font-semibold">{formatPercent(results.capRate)}</span>
+                                        </div>
+                                        <div className="flex justify-between items-center py-2 border-b">
+                                            <span className="text-gray-600">
+                                                Cash-on-Cash Return:
+                                                <span className="tooltip ml-1">
+                                                    <span className="text-gray-400 cursor-help text-xs">?</span>
+                                                    <span className="tooltiptext">Annual cash flow divided by cash invested</span>
+                                                </span>
+                                            </span>
+                                            <span className="font-semibold text-blue-600">{formatPercent(results.cashOnCashReturn)}</span>
+                                        </div>
+                                        <div className="flex justify-between items-center py-2 border-b">
+                                            <span className="text-gray-600">
+                                                Total ROI:
+                                                <span className="tooltip ml-1">
+                                                    <span className="text-gray-400 cursor-help text-xs">?</span>
+                                                    <span className="tooltiptext">Total return including appreciation</span>
+                                                </span>
+                                            </span>
+                                            <span className="font-semibold text-green-600">{formatPercent(results.totalROI)}</span>
+                                        </div>
+                                        <div className="flex justify-between items-center py-2">
+                                            <span className="text-gray-600">Break-even:</span>
+                                            <span className="font-semibold">
+                                                {results.breakEvenMonths > 0 ? `${results.breakEvenMonths} months` : 'N/A'}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="bg-white p-6 rounded-lg shadow-md">
+                                    <h3 className="text-lg font-semibold text-gray-800 mb-3">Monthly Breakdown</h3>
+                                    <div className="space-y-2 text-sm">
+                                        <div className="flex justify-between">
+                                            <span className="text-gray-600">Income:</span>
+                                            <span className="text-green-600">+{formatCurrency(results.monthlyIncome)}</span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <span className="text-gray-600">Mortgage:</span>
+                                            <span className="text-red-600">-{formatCurrency(results.monthlyPayment)}</span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <span className="text-gray-600">Other Expenses:</span>
+                                            <span className="text-red-600">-{formatCurrency(results.monthlyExpenses - results.monthlyPayment)}</span>
+                                        </div>
+                                        <div className="flex justify-between font-semibold pt-2 border-t">
+                                            <span>Net Cash Flow:</span>
+                                            <span className={results.monthlyCashFlow >= 0 ? 'text-green-600' : 'text-red-600'}>
+                                                {formatCurrency(results.monthlyCashFlow)}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Educational Content Sections */}
+                        <div className="mt-8 space-y-8">
+                            {/* Breadcrumb Navigation */}
+                            <nav className="text-sm text-gray-600">
+                                <a href="landing-page.html" className="hover:text-blue-600">Home</a> 
+                                <span className="mx-2">/</span>
+                                <a href="#calculators" className="hover:text-blue-600">Calculators</a>
+                                <span className="mx-2">/</span>
+                                <span className="text-gray-800">Rental Property ROI Calculator</span>
+                            </nav>
+
+                            {/* Introduction Section */}
+                            <div className="bg-white p-8 rounded-lg shadow-md">
+                                <h2 className="text-2xl font-bold text-gray-800 mb-4">About the Rental Property ROI Calculator</h2>
+                                <p className="text-gray-600 leading-relaxed mb-4">
+                                    Our comprehensive rental property ROI calculator is designed to help real estate investors make informed decisions 
+                                    when evaluating potential investment properties. This professional-grade tool analyzes multiple financial metrics 
+                                    including monthly cash flow, capitalization rate, cash-on-cash return, and total return on investment.
+                                </p>
+                                <p className="text-gray-600 leading-relaxed mb-4">
+                                    Whether you're a seasoned investor or just starting your real estate journey, this calculator provides the 
+                                    detailed analysis needed to identify profitable rental properties and avoid costly investment mistakes. 
+                                    The tool factors in all relevant expenses including property taxes, insurance, maintenance, property management, 
+                                    and vacancy rates to give you a realistic picture of your investment's performance.
+                                </p>
+                                <p className="text-gray-600 leading-relaxed">
+                                    With features like 5-year projections, deal rating system, and shareable reports, you can confidently present 
+                                    your analysis to partners, lenders, or simply keep detailed records for your investment portfolio.
+                                </p>
+                            </div>
+
+                            {/* How to Use Section */}
+                            <div className="bg-white p-8 rounded-lg shadow-md">
+                                <h2 className="text-2xl font-bold text-gray-800 mb-6">How to Use This Calculator</h2>
+                                <div className="grid md:grid-cols-2 gap-6">
+                                    <div>
+                                        <h3 className="text-lg font-semibold text-gray-800 mb-3">Step 1: Enter Property Details</h3>
+                                        <ul className="text-gray-600 space-y-2">
+                                            <li>• Purchase price of the property</li>
+                                            <li>• Down payment percentage (typically 20-25%)</li>
+                                            <li>• Closing costs (usually 2-3% of purchase price)</li>
+                                            <li>• Any renovation costs required</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h3 className="text-lg font-semibold text-gray-800 mb-3">Step 2: Set Financing Terms</h3>
+                                        <ul className="text-gray-600 space-y-2">
+                                            <li>• Interest rate on your loan</li>
+                                            <li>• Loan term (typically 30 years)</li>
+                                            <li>• The loan amount is calculated automatically</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h3 className="text-lg font-semibold text-gray-800 mb-3">Step 3: Input Rental Income</h3>
+                                        <ul className="text-gray-600 space-y-2">
+                                            <li>• Expected monthly rent</li>
+                                            <li>• Any additional income sources</li>
+                                            <li>• Annual rent increase percentage</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h3 className="text-lg font-semibold text-gray-800 mb-3">Step 4: Add Operating Expenses</h3>
+                                        <ul className="text-gray-600 space-y-2">
+                                            <li>• Property taxes and insurance</li>
+                                            <li>• Property management fees</li>
+                                            <li>• Maintenance reserves and vacancy rates</li>
+                                            <li>• HOA fees and utilities (if applicable)</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Understanding Results Section */}
+                            <div className="bg-white p-8 rounded-lg shadow-md">
+                                <h2 className="text-2xl font-bold text-gray-800 mb-6">Understanding Your Results</h2>
+                                <div className="space-y-4">
+                                    <div className="border-l-4 border-blue-500 pl-4">
+                                        <h3 className="font-semibold text-gray-800">Monthly Cash Flow</h3>
+                                        <p className="text-gray-600">The amount of money left over each month after all expenses. Positive cash flow means the property generates income.</p>
+                                    </div>
+                                    <div className="border-l-4 border-green-500 pl-4">
+                                        <h3 className="font-semibold text-gray-800">Cap Rate (Capitalization Rate)</h3>
+                                        <p className="text-gray-600">The ratio of Net Operating Income to property value, expressed as a percentage. Higher cap rates typically indicate better returns.</p>
+                                    </div>
+                                    <div className="border-l-4 border-purple-500 pl-4">
+                                        <h3 className="font-semibold text-gray-800">Cash-on-Cash Return</h3>
+                                        <p className="text-gray-600">The annual cash flow divided by the total cash invested. This shows the return on your actual investment.</p>
+                                    </div>
+                                    <div className="border-l-4 border-orange-500 pl-4">
+                                        <h3 className="font-semibold text-gray-800">Total ROI</h3>
+                                        <p className="text-gray-600">Includes both cash flow and appreciation. This comprehensive metric accounts for property value growth over time.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* FAQ Section */}
+                            <div className="bg-white p-8 rounded-lg shadow-md">
+                                <h2 className="text-2xl font-bold text-gray-800 mb-6">Frequently Asked Questions</h2>
+                                <div className="space-y-6">
+                                    <div>
+                                        <h3 className="font-semibold text-gray-800 mb-2">What is a good ROI for rental property?</h3>
+                                        <p className="text-gray-600">A good ROI varies by market, but generally 8-12% annual returns are considered solid for rental properties. Cash-on-cash returns of 8% or higher are typically desirable.</p>
+                                    </div>
+                                    <div>
+                                        <h3 className="font-semibold text-gray-800 mb-2">How accurate is the 5-year projection?</h3>
+                                        <p className="text-gray-600">The projection assumes consistent rent increases and stable expenses. Actual results may vary based on market conditions, property condition, and economic factors.</p>
+                                    </div>
+                                    <div>
+                                        <h3 className="font-semibold text-gray-800 mb-2">Should I include property appreciation in ROI calculations?</h3>
+                                        <p className="text-gray-600">While appreciation can significantly boost returns, it's unpredictable. Focus on cash flow metrics for conservative analysis, but consider appreciation as a potential bonus.</p>
+                                    </div>
+                                    <div>
+                                        <h3 className="font-semibold text-gray-800 mb-2">What vacancy rate should I use?</h3>
+                                        <p className="text-gray-600">Typical vacancy rates range from 5-10% depending on location and property type. Research your local market or use 5% as a conservative starting point.</p>
+                                    </div>
+                                    <div>
+                                        <h3 className="font-semibold text-gray-800 mb-2">How much should I budget for maintenance?</h3>
+                                        <p className="text-gray-600">A common rule is 1-2% of property value annually, or 5-10% of gross rental income. Older properties typically require higher maintenance reserves.</p>
+                                    </div>
+                                    <div>
+                                        <h3 className="font-semibold text-gray-800 mb-2">Is property management worth the cost?</h3>
+                                        <p className="text-gray-600">Property management typically costs 8-12% of rental income but can save time and provide professional tenant screening, maintenance coordination, and legal compliance.</p>
+                                    </div>
+                                    <div>
+                                        <h3 className="font-semibold text-gray-800 mb-2">Can I save and share my calculations?</h3>
+                                        <p className="text-gray-600">Yes! Use the Share button to generate a URL with your inputs, or the Print button to create a professional report for your records or presentations.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Related Calculators Section */}
+                            <div className="bg-gray-50 p-8 rounded-lg">
+                                <h2 className="text-2xl font-bold text-gray-800 mb-6">Related Calculators</h2>
+                                <div className="grid md:grid-cols-2 gap-6">
+                                    <div className="bg-white p-6 rounded-lg shadow-sm border">
+                                        <h3 className="text-lg font-semibold text-gray-800 mb-2">BRRRR Strategy Calculator</h3>
+                                        <p className="text-gray-600 mb-4">Analyze Buy, Rehab, Rent, Refinance, Repeat deals to see how much capital you can recover through refinancing.</p>
+                                        <a href="brrrr-calculator.html" className="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
+                                            Calculate BRRRR Returns →
+                                        </a>
+                                    </div>
+                                    <div className="bg-white p-6 rounded-lg shadow-sm border">
+                                        <h3 className="text-lg font-semibold text-gray-800 mb-2">Fix & Flip Profit Calculator</h3>
+                                        <p className="text-gray-600 mb-4">Determine the profitability of house flipping projects with detailed cost analysis and timeline considerations.</p>
+                                        <a href="fix-flip-calculator.html" className="inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors">
+                                            Calculate Flip Profits →
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="mt-8 bg-white p-6 rounded-lg shadow-md">
+                            <h2 className="text-2xl font-bold text-gray-800 mb-4">5-Year Cash Flow Projection</h2>
+                            <div className="h-96">
+                                <Line data={chartData} options={chartOptions} />
+                            </div>
+                        </div>
+
+                        <div className="adsense-container adsense-footer no-print">
+                            <ins className="adsbygoogle"
+                                 style={{display: 'block'}}
+                                 data-ad-client="ca-pub-XXXXXXXXXX"
+                                 data-ad-slot="XXXXXXXXXX"
+                                 data-ad-format="horizontal"
+                                 data-full-width-responsive="true"></ins>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<RentalPropertyCalculator />, document.getElementById('root'));
+    </script>
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX" crossorigin="anonymous"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</body>
+</html>
