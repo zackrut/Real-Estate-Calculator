@@ -11,6 +11,7 @@ const HomePage = React.lazy(() => import('./pages/HomePage'));
 const RentalROICalculator = React.lazy(() => import('./pages/RentalROICalculator'));
 const BRRRRCalculator = React.lazy(() => import('./pages/BRRRRCalculator'));
 const FixFlipCalculator = React.lazy(() => import('./pages/FixFlipCalculator'));
+const AirbnbVsRentalCalculator = React.lazy(() => import('./pages/AirbnbVsRentalCalculator'));
 const About = React.lazy(() => import('./pages/About'));
 const Contact = React.lazy(() => import('./pages/Contact'));
 const PrivacyPolicy = React.lazy(() => import('./pages/PrivacyPolicy'));
@@ -35,6 +36,7 @@ function App() {
               <Route path="/rental-roi-calculator" element={<RentalROICalculator />} />
               <Route path="/brrrr-calculator" element={<BRRRRCalculator />} />
               <Route path="/fix-flip-calculator" element={<FixFlipCalculator />} />
+              <Route path="/airbnb-vs-rental-calculator" element={<AirbnbVsRentalCalculator />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/privacy" element={<PrivacyPolicy />} />

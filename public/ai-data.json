@@ -27,6 +27,14 @@
       "inputs": ["purchase price", "repair costs", "selling price", "holding time"],
       "outputs": ["net profit", "ROI percentage", "profit margin", "annualized return"],
       "use_case": "Evaluate profitability of house flipping projects"
+    },
+    {
+      "name": "Airbnb vs Long-Term Rental Calculator",
+      "url": "https://reicalculator.pro/airbnb-vs-rental-calculator",
+      "description": "Compare short-term vacation rentals with traditional long-term rentals",
+      "inputs": ["property details", "nightly rate", "occupancy rate", "monthly rent", "expenses"],
+      "outputs": ["monthly cash flow comparison", "break-even occupancy", "winner declaration", "effort/risk levels"],
+      "use_case": "Determine whether Airbnb or traditional rental is more profitable"
     }
   ],
   "key_features": [

@@ -7,7 +7,8 @@ const Footer = () => {
   const calculators = [
     { path: '/rental-roi-calculator', name: 'Rental Property ROI' },
     { path: '/brrrr-calculator', name: 'BRRRR Strategy' },
-    { path: '/fix-flip-calculator', name: 'Fix & Flip Profit' }
+    { path: '/fix-flip-calculator', name: 'Fix & Flip Profit' },
+    { path: '/airbnb-vs-rental-calculator', name: 'Airbnb vs Rental' }
   ];
 
   const company = [

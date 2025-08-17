@@ -9,7 +9,8 @@ const Header = () => {
   const calculators = [
     { path: '/rental-roi-calculator', name: 'Rental Property ROI', icon: 'fas fa-home' },
     { path: '/brrrr-calculator', name: 'BRRRR Strategy', icon: 'fas fa-sync' },
-    { path: '/fix-flip-calculator', name: 'Fix & Flip Profit', icon: 'fas fa-hammer' }
+    { path: '/fix-flip-calculator', name: 'Fix & Flip Profit', icon: 'fas fa-hammer' },
+    { path: '/airbnb-vs-rental-calculator', name: 'Airbnb vs Rental', icon: 'fas fa-bed' }
   ];
 
   const isActive = (path) => location.pathname === path;

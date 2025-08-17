@@ -19,7 +19,7 @@ const HomePage = () => {
       title: 'BRRRR Strategy',
       description: 'Calculate capital recovery and infinite returns for Buy, Rehab, Rent, Refinance, Repeat strategy.',
       icon: 'fas fa-sync',
-      badge: 'New',
+      badge: 'Advanced',
       badgeColor: 'bg-blue-500',
       path: '/brrrr-calculator'
     },
@@ -31,6 +31,15 @@ const HomePage = () => {
       badge: 'Popular',
       badgeColor: 'bg-green-500',
       path: '/fix-flip-calculator'
+    },
+    {
+      id: 'airbnb-vs-rental',
+      title: 'Airbnb vs Rental',
+      description: 'Compare short-term vacation rentals with traditional long-term rentals to find your optimal strategy.',
+      icon: 'fas fa-bed',
+      badge: 'New',
+      badgeColor: 'bg-purple-500',
+      path: '/airbnb-vs-rental-calculator'
     }
   ];
 
@@ -119,7 +128,7 @@ const HomePage = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
               {calculators.map((calc) => (
                 <div 
                   key={calc.id}
