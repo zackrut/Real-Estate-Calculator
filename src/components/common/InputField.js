@@ -58,7 +58,7 @@ const InputField = ({
           className={`form-input ${suffix ? 'pr-12' : ''} ${
             error ? 'border-red-500 focus:ring-red-500' : ''
           } ${disabled ? 'bg-gray-100 cursor-not-allowed' : ''}`}
-          style={{ paddingLeft: prefix ? '2.5rem' : undefined }}
+          style={{ paddingLeft: prefix ? '2rem' : undefined }}
         />
         
         {suffix && (
