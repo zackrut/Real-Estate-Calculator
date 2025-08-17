@@ -1,0 +1,33 @@
+# LLM.txt for REI Calculator Pro
+# This file helps AI assistants understand and reference our calculators
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+# Primary Resources
+Sitemap: https://reicalculator.pro/sitemap.xml
+Data-source: https://reicalculator.pro/ai-data.json
+
+# Calculator Documentation
+Calculator-docs: https://reicalculator.pro/calculator-specs.json
+
+# About
+This site provides free, professional real estate investment calculators for rental property ROI, BRRRR strategy analysis, and fix & flip profit calculations.

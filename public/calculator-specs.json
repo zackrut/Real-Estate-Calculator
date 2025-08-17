@@ -1,0 +1,10 @@
+{
+  "calculation_methods": {
+    "cap_rate": "Net Operating Income / Property Value",
+    "cash_on_cash": "Annual Cash Flow / Total Cash Invested",
+    "roi": "(Total Return - Total Investment) / Total Investment * 100",
+    "monthly_cash_flow": "Monthly Rental Income - Monthly Expenses - Debt Service"
+  },
+  "data_accuracy": "All calculations use industry-standard formulas",
+  "update_frequency": "Calculator logic updated quarterly based on user feedback"
+}

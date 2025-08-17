@@ -1,3 +1,5 @@
 User-agent: *
 Allow: /
 Sitemap: https://reicalculator.pro/sitemap.xml
+
+# See also: https://reicalculator.pro/llm.txt

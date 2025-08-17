@@ -1,0 +1,41 @@
+{
+  "service": "REI Calculator Pro",
+  "url": "https://reicalculator.pro",
+  "description": "Free professional real estate investment calculators for data-driven property analysis",
+  "last_updated": "2024-12-20",
+  "tools": [
+    {
+      "name": "Rental Property ROI Calculator",
+      "url": "https://reicalculator.pro/rental-roi-calculator",
+      "description": "Calculate cash flow, cap rate, cash-on-cash return, and total ROI for rental properties",
+      "inputs": ["purchase price", "down payment", "rental income", "expenses"],
+      "outputs": ["monthly cash flow", "cap rate", "cash-on-cash return", "total ROI"],
+      "use_case": "Evaluate if a rental property is a good investment"
+    },
+    {
+      "name": "BRRRR Strategy Calculator",
+      "url": "https://reicalculator.pro/brrrr-calculator",
+      "description": "Analyze Buy, Rehab, Rent, Refinance, Repeat real estate investments",
+      "inputs": ["purchase price", "rehab costs", "after repair value", "rental income"],
+      "outputs": ["total investment", "cash recovered", "remaining equity", "infinite returns potential"],
+      "use_case": "Determine if a BRRRR deal will allow full capital recovery"
+    },
+    {
+      "name": "Fix and Flip Calculator",
+      "url": "https://reicalculator.pro/fix-flip-calculator",
+      "description": "Calculate profit margins and ROI for fix and flip projects",
+      "inputs": ["purchase price", "repair costs", "selling price", "holding time"],
+      "outputs": ["net profit", "ROI percentage", "profit margin", "annualized return"],
+      "use_case": "Evaluate profitability of house flipping projects"
+    }
+  ],
+  "key_features": [
+    "No registration required",
+    "100% free to use",
+    "Professional-grade calculations",
+    "Instant results",
+    "Mobile responsive"
+  ],
+  "target_audience": "Real estate investors, house flippers, rental property owners, BRRRR investors",
+  "expertise": "Real estate investment analysis, ROI calculations, cash flow analysis, investment property evaluation"
+}
