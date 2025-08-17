@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import InputField from '../components/common/InputField';
 import ResultCard, { MetricDisplay } from '../components/common/ResultCard';
 import ActionButtons from '../components/common/ActionButtons';
-import AdBox from '../components/common/AdBox';
+import AdBox from '../components/AdBox';
 import { formatCurrency, formatPercentage, calculateMonthlyPayment } from '../utils/formatters';
 import { trackCalculatorUsage, trackCalculation, useTimeTracking } from '../utils/analytics';
 import { loadFromURL, saveToURL } from '../utils/urlParams';
