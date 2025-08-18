@@ -31,15 +31,6 @@ const HomePage = () => {
       badge: 'Popular',
       badgeColor: 'bg-green-500',
       path: '/fix-flip-calculator'
-    },
-    {
-      id: 'airbnb-vs-rental',
-      title: 'Airbnb vs Rental',
-      description: 'Compare short-term vacation rentals with traditional long-term rentals to find your optimal strategy.',
-      icon: 'fas fa-bed',
-      badge: 'New',
-      badgeColor: 'bg-purple-500',
-      path: '/airbnb-vs-rental-calculator'
     }
   ];
 
