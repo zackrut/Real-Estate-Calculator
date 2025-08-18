@@ -55,7 +55,7 @@ const InputField = ({
           max={max}
           disabled={disabled}
           required={required}
-          className={`form-input ${suffix ? 'pr-12' : ''} ${
+          className={`form-input ${suffix ? 'pr-16' : ''} ${
             error ? 'border-red-500 focus:ring-red-500' : ''
           } ${disabled ? 'bg-gray-100 cursor-not-allowed' : ''}`}
           style={{ paddingLeft: prefix ? '2rem' : undefined }}
