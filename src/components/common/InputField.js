@@ -62,7 +62,7 @@ const InputField = ({
         />
         
         {suffix && (
-          <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+          <div className="absolute inset-y-0 right-5 flex items-center pointer-events-none">
             <span className="text-gray-600 text-sm">{suffix}</span>
           </div>
         )}
