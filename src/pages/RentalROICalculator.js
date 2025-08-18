@@ -103,6 +103,51 @@ const RentalROICalculator = () => {
         ? Math.ceil(totalCashInvested / monthlyCashFlow) 
         : 0;
 
+      // Calculate multi-year projections with compound rent increases
+      const rentIncreaseMultiplier = 1 + (inputs.annualRentIncreasePercent / 100);
+      
+      // 5-year projection
+      let totalCashFlow5Year = 0;
+      let year5Rent = inputs.monthlyRent;
+      for (let year = 1; year <= 5; year++) {
+        if (year > 1) {
+          year5Rent *= rentIncreaseMultiplier;
+        }
+        const yearlyGrossIncome = (year5Rent + inputs.otherMonthlyIncome) * 12;
+        const yearlyEffectiveIncome = yearlyGrossIncome * (1 - inputs.vacancyRatePercent / 100);
+        const yearlyPropertyManagement = yearlyEffectiveIncome * (inputs.propertyManagementPercent / 100);
+        const yearlyMaintenance = yearlyEffectiveIncome * (inputs.maintenanceReservePercent / 100);
+        const yearlyOperatingExpenses = (inputs.propertyTaxes + inputs.insurance + (inputs.hoaFees * 12) + 
+          yearlyPropertyManagement + yearlyMaintenance + (inputs.utilities * 12));
+        const yearlyCashFlow = yearlyEffectiveIncome - yearlyOperatingExpenses - (monthlyPayment * 12);
+        totalCashFlow5Year += yearlyCashFlow;
+      }
+      const avgAnnualCashFlow5Year = totalCashFlow5Year / 5;
+      const cashOnCashReturn5Year = totalCashInvested > 0 ? (avgAnnualCashFlow5Year / totalCashInvested) * 100 : 0;
+      
+      // 10-year projection
+      let totalCashFlow10Year = 0;
+      let year10Rent = inputs.monthlyRent;
+      for (let year = 1; year <= 10; year++) {
+        if (year > 1) {
+          year10Rent *= rentIncreaseMultiplier;
+        }
+        const yearlyGrossIncome = (year10Rent + inputs.otherMonthlyIncome) * 12;
+        const yearlyEffectiveIncome = yearlyGrossIncome * (1 - inputs.vacancyRatePercent / 100);
+        const yearlyPropertyManagement = yearlyEffectiveIncome * (inputs.propertyManagementPercent / 100);
+        const yearlyMaintenance = yearlyEffectiveIncome * (inputs.maintenanceReservePercent / 100);
+        const yearlyOperatingExpenses = (inputs.propertyTaxes + inputs.insurance + (inputs.hoaFees * 12) + 
+          yearlyPropertyManagement + yearlyMaintenance + (inputs.utilities * 12));
+        const yearlyCashFlow = yearlyEffectiveIncome - yearlyOperatingExpenses - (monthlyPayment * 12);
+        totalCashFlow10Year += yearlyCashFlow;
+      }
+      const avgAnnualCashFlow10Year = totalCashFlow10Year / 10;
+      const cashOnCashReturn10Year = totalCashInvested > 0 ? (avgAnnualCashFlow10Year / totalCashInvested) * 100 : 0;
+      
+      // Calculate final year monthly rent
+      const year5MonthlyRent = inputs.monthlyRent * Math.pow(rentIncreaseMultiplier, 4);
+      const year10MonthlyRent = inputs.monthlyRent * Math.pow(rentIncreaseMultiplier, 9);
+
       let dealRating = 'Poor';
       if (cashOnCashReturn >= 12) dealRating = 'Excellent';
       else if (cashOnCashReturn >= 8) dealRating = 'Good';
@@ -119,7 +164,16 @@ const RentalROICalculator = () => {
         cashOnCashReturn,
         totalROI,
         breakEvenMonths,
-        dealRating
+        dealRating,
+        // New multi-year results
+        avgAnnualCashFlow5Year,
+        cashOnCashReturn5Year,
+        avgAnnualCashFlow10Year,
+        cashOnCashReturn10Year,
+        year5MonthlyRent,
+        year10MonthlyRent,
+        totalCashFlow5Year,
+        totalCashFlow10Year
       });
 
       trackCalculation('Rental Property ROI');
@@ -415,6 +469,63 @@ const RentalROICalculator = () => {
                         type="currency"
                         positive={results.monthlyCashFlow >= 0}
                         className="text-lg font-semibold"
+                      />
+                    </div>
+                  </div>
+                </ResultCard>
+
+                {/* Multi-Year Projections */}
+                <ResultCard title="Multi-Year Projections" icon="fas fa-chart-line">
+                  <div className="text-sm text-gray-600 mb-4">
+                    Based on {formatPercentage(inputs.annualRentIncreasePercent)} annual rent increase
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-4 mb-4">
+                    <div className="text-center">
+                      <div className="text-xs text-gray-500 uppercase">5-Year Average</div>
+                      <div className="text-lg font-semibold text-blue-600">
+                        {formatPercentage(results.cashOnCashReturn5Year)}
+                      </div>
+                      <div className="text-xs text-gray-600">Cash-on-Cash</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-xs text-gray-500 uppercase">10-Year Average</div>
+                      <div className="text-lg font-semibold text-green-600">
+                        {formatPercentage(results.cashOnCashReturn10Year)}
+                      </div>
+                      <div className="text-xs text-gray-600">Cash-on-Cash</div>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <div className="border-t pt-3">
+                      <div className="text-sm font-medium text-gray-700 mb-2">Rent Growth</div>
+                      <MetricDisplay
+                        label="Year 5 Monthly Rent"
+                        value={results.year5MonthlyRent}
+                        type="currency"
+                        positive={true}
+                      />
+                      <MetricDisplay
+                        label="Year 10 Monthly Rent"
+                        value={results.year10MonthlyRent}
+                        type="currency"
+                        positive={true}
+                      />
+                    </div>
+                    <div className="border-t pt-3">
+                      <div className="text-sm font-medium text-gray-700 mb-2">Total Cash Flow</div>
+                      <MetricDisplay
+                        label="5-Year Total"
+                        value={results.totalCashFlow5Year}
+                        type="currency"
+                        positive={results.totalCashFlow5Year >= 0}
+                      />
+                      <MetricDisplay
+                        label="10-Year Total"
+                        value={results.totalCashFlow10Year}
+                        type="currency"
+                        positive={results.totalCashFlow10Year >= 0}
                       />
                     </div>
                   </div>
