@@ -7,8 +7,7 @@ const Footer = () => {
   const calculators = [
     { path: '/rental-roi-calculator', name: 'Rental Property ROI' },
     { path: '/brrrr-calculator', name: 'BRRRR Strategy' },
-    { path: '/fix-flip-calculator', name: 'Fix & Flip Profit' },
-    { path: '/airbnb-vs-rental-calculator', name: 'Airbnb vs Rental' }
+    { path: '/fix-flip-calculator', name: 'Fix & Flip Profit' }
   ];
 
   const company = [
@@ -22,9 +21,9 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-gray-900 text-gray-300">
+    <footer className="bg-gray-900 text-gray-300 min-h-[400px]">
       <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 min-h-[280px]">
           {/* Company Info */}
           <div>
             <div className="flex items-center space-x-2 mb-4">
