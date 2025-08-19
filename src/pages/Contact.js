@@ -5,8 +5,22 @@ const Contact = () => {
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e) => {
-    // Netlify will handle the form submission
-    setSubmitted(true);
+    e.preventDefault();
+    
+    // Let Netlify handle the form submission
+    const form = e.target;
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(new FormData(form)).toString()
+    })
+    .then(() => {
+      setSubmitted(true);
+    })
+    .catch(error => {
+      console.error('Form submission error:', error);
+      // Handle error state if needed
+    });
   };
 
   if (submitted) {
