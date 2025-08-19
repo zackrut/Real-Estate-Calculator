@@ -64,6 +64,21 @@
         background-color: #f9fafb;
       }
       
+      /* Prevent font-related layout shifts */
+      * {
+        font-display: swap;
+      }
+      
+      /* Size-adjust to match Inter font metrics */
+      @font-face {
+        font-family: 'Inter Fallback';
+        src: local('Arial');
+        size-adjust: 106.5%;
+        ascent-override: 90%;
+        descent-override: 22%;
+        line-gap-override: 0%;
+      }
+      
       .loading-spinner {
         position: fixed;
         top: 0;
