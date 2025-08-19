@@ -79,6 +79,30 @@
         line-gap-override: 0%;
       }
       
+      /* Critical footer styles to prevent CLS */
+      footer {
+        height: 420px !important;
+        background-color: #111827;
+        overflow: hidden;
+        position: relative;
+      }
+      
+      /* Reserve space for footer content */
+      footer::before {
+        content: '';
+        display: block;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+      }
+      
+      @media (max-width: 768px) {
+        footer {
+          height: auto !important;
+          min-height: 500px;
+        }
+      }
+      
       .loading-spinner {
         position: fixed;
         top: 0;
