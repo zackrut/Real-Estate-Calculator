@@ -21,7 +21,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-gray-900 text-gray-300 min-h-[400px]">
+    <footer className="bg-gray-900 text-gray-300 h-[420px] overflow-hidden">
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 min-h-[280px]">
           {/* Company Info */}

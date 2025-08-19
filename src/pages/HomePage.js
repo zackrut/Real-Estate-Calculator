@@ -60,12 +60,12 @@ const HomePage = () => {
                 <span>Professional Real Estate</span>
                 <span className="block text-green-400">Investment Calculators</span>
               </h1>
-              <p className="text-xl md:text-2xl mb-8 text-blue-100">
+              <p className="text-xl md:text-2xl mb-8 text-blue-100 h-[32px] md:h-[36px]">
                 Make Data-Driven Property Investment Decisions
               </p>
               
               {/* Feature Badges */}
-              <div className="flex flex-wrap justify-center gap-4 mb-8">
+              <div className="flex flex-wrap justify-center gap-4 mb-8 min-h-[48px]">
                 <div className="bg-green-500 bg-opacity-20 backdrop-filter backdrop-blur-lg border border-green-400 border-opacity-30 px-4 py-2 rounded-full">
                   <i className="fas fa-check text-green-400 mr-2"></i>
                   <span className="font-semibold">100% Free</span>
