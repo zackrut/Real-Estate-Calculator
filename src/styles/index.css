@@ -97,12 +97,13 @@ a:hover {
 }
 
 .pulse-glow {
-  animation: pulse-glow 2s ease-in-out infinite alternate;
+  /* Use transform animation to prevent layout shifts */
+  animation: pulse-scale 2s ease-in-out infinite;
 }
 
-@keyframes pulse-glow {
-  from { box-shadow: 0 0 20px rgba(16, 185, 129, 0.3); }
-  to { box-shadow: 0 0 30px rgba(16, 185, 129, 0.6); }
+@keyframes pulse-scale {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
 }
 
 /* Tooltip Styles */
